@@ -1,0 +1,65 @@
+﻿
+Ni ska skriva en förenklad version av ett system för auktioner, där användare kan registrera sig och därefter lägga upp auktioner samt lägga bud på andras auktioner.
+
+En auktion har: 
+
+ - ett namn 
+ - en utförligare beskrivning av varan 
+ - information om vem som auktionerar ut varan, 
+ - ett utgångspris samt datum och tid när auktionen går ut (inga fler bud kan läggas). 
+ - En auktion har även en samling bud.
+
+Ett bud har :
+ - information om vem som lagt budet, 
+ - budets storlek och när budet lagts.
+
+
+Användningsfall/funktionella krav för betyg 3.
+
+ - En användare ska kunna registrera sig.
+
+Nedanstående användningsfall förutsätter alla att användaren är inloggad.
+
+En användare ska kunna
+
+ - skapa en auktion,
+ - editera beskrivningen av en auktion (men ingen annan information om auktionen),
+ - lista alla pågående auktioner (som ej passerat tid då auktionen går ut) - sorterade efter slutdatum,
+ - se detaljer, inklusive lagda bud, för en pågående auktion - buden ska vara sorterade så att det högsta ligger först,
+ - lägga bud på en pågående auktion, som inte är ens egen (budet måste vara högre än tidigare bud/utgångspris),
+ - lista alla auktioner där hen lagt bud och som är pågående,
+ - lista alla avslutade auktioner som hen vunnit.
+
+Icke-funktionella krav – gäller alla betygsnivåer
+
+ - Lösningen ska vara en ASP.NET applikation, version Core 6.0.
+ - Lösningen ska ha en trelagerarkitektur, med tydlig uppdelning mellan datalager, affärslogik och presentationslager. 
+   Speciellt ska stor vikt läggas vid att logiken verkligen implementeras i affärslogiklagret.
+ - Gränslinjerna mellan de olika lagren ska representeras av två interface. 
+   Dependency injection ska användas för att ge ett lager åtkomst till underliggande lagers implementation.
+ - Presentationslagret ska implementeras med MVC samt vy-modeller.
+ - Entity Framework ska användas som ORM i datalagret. EF-klasserna ska skrivas så att BidDb får en FK till AuctionDb i databasen.
+ - Endast det data som är relevenat för ett sepcifikt användningsfall ska hämtas från databasen.
+ - Identity ska användas för login, logout och registrering av användare. Användardatabasen ska vara en separat databas.
+ - Det ska inte vara möjligt att komma åt andra användares resurser, till exempel genom att manipulera ett id i en URL.
+
+Betyg 4
+
+ - Implementera ett generiskt repository[1] i datalagret och använd detta för att accessa AuctionDb respektive BidDb objekt.
+   Repostoriet ska inte synas utanför datalagret.
+
+Alla krav för betyg 3 ingår också.
+Betyg 5
+
+ - Lägg till rollen/claim administratör i Identity och skapa en administratör.
+
+En administratör ska kunna
+
+ - lista information om alla användare,
+ - lista alla auktioner för en given användare,
+ - ta bort en användare eller auktion.
+
+Alla krav för betyg 4 ingår också.
+
+[1] Se t.ex. https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+Links to an external site. 

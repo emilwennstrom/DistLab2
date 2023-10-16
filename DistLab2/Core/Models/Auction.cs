@@ -2,12 +2,15 @@
 {
     public class Auction
     {
+        public int id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        //lägg till user
+        //TODO: lägg till user
         public int StartingPrice { get; set; }
         public DateOnly CreationDate { get; set; }
-        public DateOnly endDate { get; set; }
+        public DateOnly EndDate { get; set; }
+        public List<Bid> Bids{ get; set;}
+
 
     }
 }

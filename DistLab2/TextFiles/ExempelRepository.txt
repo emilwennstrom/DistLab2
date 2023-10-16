@@ -1,0 +1,111 @@
+﻿Låt oss skapa ett enkelt exempel på en MVC-applikation i ASP.NET Core som använder Repository designmönstret. Vår applikation kommer att hantera en samling böcker.
+
+**1. Modell**
+
+Skapa en `Book` modell:
+```csharp
+public class Book
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+}
+```
+
+**2. Repository Interface**
+
+Skapa ett gränssnitt för vårt repository:
+```csharp
+public interface IBookRepository
+{
+    IEnumerable<Book> GetAllBooks();
+    Book GetBookById(int id);
+    void AddBook(Book book);
+    void UpdateBook(Book book);
+    void DeleteBook(int id);
+}
+```
+
+**3. Repository Implementation**
+
+Implementera repository-gränssnittet. (För enkelhetens skull, låt oss använda en in-memory lista. I en verklig applikation skulle detta interagera med en databas.)
+```csharp
+public class BookRepository : IBookRepository
+{
+    private List<Book> _books = new List<Book>();
+
+    public void AddBook(Book book)
+    {
+        _books.Add(book);
+    }
+
+    public void DeleteBook(int id)
+    {
+        var book = GetBookById(id);
+        _books.Remove(book);
+    }
+
+    public IEnumerable<Book> GetAllBooks()
+    {
+        return _books;
+    }
+
+    public Book GetBookById(int id)
+    {
+        return _books.FirstOrDefault(b => b.Id == id);
+    }
+
+    public void UpdateBook(Book book)
+    {
+        // Update logic here
+    }
+}
+```
+
+**4. Controller**
+
+Skapa en `BooksController` som använder vårt repository:
+```csharp
+public class BooksController : Controller
+{
+    private readonly IBookRepository _bookRepository;
+
+    public BooksController(IBookRepository bookRepository)
+    {
+        _bookRepository = bookRepository;
+    }
+
+    public IActionResult Index()
+    {
+        return View(_bookRepository.GetAllBooks());
+    }
+
+    public IActionResult Details(int id)
+    {
+        return View(_bookRepository.GetBookById(id));
+    }
+
+    // ... [Create, Edit, Delete action methods]
+}
+```
+
+**5. Dependency Injection**
+
+För att binda vårt repository till gränssnittet, lägg till följande i `Startup.cs`:
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddTransient<IBookRepository, BookRepository>();
+    // Other services
+}
+```
+
+**6. Views**
+
+Skapa nödvändiga vyer (`Index`, `Details`, etc.) för att visa och hantera bokdata.
+
+---
+
+Ovanstående exempel visar grunden för att använda Repository designmönstret inom en ASP.NET Core MVC-applikation. 
+I en verklig applikation skulle `BookRepository` troligtvis interagera med en databas (t.ex. med hjälp av Entity Framework Core) snarare än att använda en in-memory lista. 
+Men konceptet skulle förbli detsamma: att isolera databasinteraktionen bakom ett repository-gränssnitt för att skapa en ren separation av bekymmer.

@@ -63,3 +63,28 @@ Alla krav för betyg 4 ingår också.
 
 [1] Se t.ex. https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
 Links to an external site. 
+
+
+
+Länkar:
+
+Entity framework:
+https://www.learnentityframeworkcore.com/dbset/
+https://www.learnentityframeworkcore.com/dbset/querying-data
+https://docs.microsoft.com/en-us/ef/core/
+
+Kth-moduler: 
+https://canvas.kth.se/courses/41982/modules
+
+Identity: 
+https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?tabs=visual-studio&view=aspnetcore-6.0
+https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-6.0&tabs=visual-studio#scaffold-identity-into-an-mvc-project-without-existing-authorization
+
+Mer om repository-pattern:
+
+https://www.linkedin.com/pulse/what-repository-pattern-alper-sara%C3%A7/
+
+
+
+
+

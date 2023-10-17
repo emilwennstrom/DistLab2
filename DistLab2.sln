@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistLab2", "DistLab2\DistLab2.csproj", "{92C44A37-160D-49E0-980A-EE7324123C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistLab2", "DistLab2\DistLab2.csproj", "{92C44A37-160D-49E0-980A-EE7324123C0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

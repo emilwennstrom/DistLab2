@@ -6,16 +6,11 @@ namespace DistLab2.Persistence.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-
         protected readonly DbContext _context;
-
-
         public Repository(DbContext context)
         {
             _context = context;
         }
-
-
 
         public void Add(T item)
         {

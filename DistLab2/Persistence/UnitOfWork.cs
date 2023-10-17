@@ -1,19 +1,21 @@
-﻿using DistLab2.Core.Repositories;
+﻿using DistLab2.Core;
+using DistLab2.Core.Interfaces;
+using DistLab2.Core.Repositories;
 using DistLab2.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace DistLab2.Core
+namespace DistLab2.Persistence
 {
 
-    public class UnitOfWork
-    {   
+    public class UnitOfWork : IUnitOfWork
+    {
 
         private readonly DbContext _context;
 
-        public UnitOfWork(DbContext context) 
+        public UnitOfWork(AuctionDbContext context, IAuctionRepository auctionRepository)
         {
             _context = context;
-            Auctions = new AuctionRepository(context);
+            Auctions = auctionRepository;
             Bids = new BidRepository(context);
         }
 

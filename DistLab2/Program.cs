@@ -1,3 +1,9 @@
+using DistLab2.Core.Interfaces;
+using DistLab2.Core.Repositories;
+using DistLab2.Persistence;
+using DistLab2.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace DistLab2
 {
     public class Program
@@ -8,6 +14,17 @@ namespace DistLab2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            
+            builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
+
+            builder.Services.AddScoped<IAuctionRepository, MockAuctionRepository>();
+
+            
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // add auto mapper scanning (requires AutoMapper package)
+            builder.Services.AddAutoMapper(typeof(Program));
+
 
             var app = builder.Build();
 
@@ -29,7 +46,7 @@ namespace DistLab2
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            //app.MapRazorPages();
             app.Run();
         }
     }

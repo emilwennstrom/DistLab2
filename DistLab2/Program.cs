@@ -1,7 +1,7 @@
 using DistLab2.Core.Interfaces;
 using DistLab2.Core.Repositories;
 using DistLab2.Persistence;
-using DistLab2.Persistence.Repositories;
+using DistLab2.Persistence.MockClasses;
 using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2

@@ -5,6 +5,17 @@ namespace DistLab2.Core
 {
     public class Auction
     {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        //TODO: lägg till user
+        public int StartingPrice { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public List<Bid> Bids { get; set; }
+
+
         public Auction(int id, string name, string description, int startingPrice, DateTime creationDate, DateTime endDate, List<Bid>? bids)
         {
             Id = id;
@@ -18,15 +29,15 @@ namespace DistLab2.Core
 
 
 
-        // Dummy
+        //Todo: Ta bort sen, dummy
         public Auction(int id, string name)
         {
             Id = id;
             Name = name;
-            Description = "this is a descrition of auction " + Id;
+            Description = "this is a description of auction " + Id;
             StartingPrice = Id + 20;
             CreationDate = DateTime.Now;
-            EndDate = DateTime.Now.AddDays(10);
+            EndDate = DateTime.Now.AddMonths(1);
             Bids = new List<Bid>();
         }
 
@@ -39,21 +50,21 @@ namespace DistLab2.Core
             Bids = new List<Bid>();
         }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        //TODO: lägg till user
-        public int StartingPrice { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public List<Bid>? Bids { get; set;}
+        public Auction(string name, string description, int startingPrice)
+        {
+            Name = name;
+            Description = description;
+            StartingPrice = startingPrice;
+        }
     }
 
     public class StartingPriceComparator : IComparer<Auction>
     {
-        public int Compare(Auction x, Auction y)
+        public int Compare(Auction? x, Auction? y)
         {
-            Debug.WriteLine("sorting");
+            if (x == null && y == null) return 0;
+            if (x == null) return -1;
+            if (y == null) return 1;
             return y.StartingPrice.CompareTo(x.StartingPrice);
         }
     }

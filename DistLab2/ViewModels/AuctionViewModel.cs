@@ -12,20 +12,27 @@ namespace DistLab2.ViewModels
         public int StartingPrice { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
-        public List<Bid>? Bids { get; set; }
+        public List<BidViewModel> Bids { get; set; } = new();
 
         public static AuctionViewModel FromAuction(Auction auction)
         {
-            return new AuctionViewModel
+            var vm = new AuctionViewModel
             {
                 Id = auction.Id,
                 Name = auction.Name,
                 Description = auction.Description,
                 StartingPrice = auction.StartingPrice,
                 CreationDate = auction.CreationDate,
-                EndDate = auction.EndDate,
-                Bids = auction.Bids
+                EndDate = auction.EndDate
             };
+            if (auction.Bids != null ) 
+            {
+                foreach(var bid in auction.Bids) // Ska en lista skapas när man skapar en auction från 
+                {                               // Eller ska den skapas när första budet läggs till
+                    vm.Bids.Add(BidViewModel.FromBid(bid));
+                }
+            }
+            return vm;
         }
 
       

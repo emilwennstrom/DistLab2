@@ -23,7 +23,6 @@ namespace DistLab2
             builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
             builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDbConnection")));
 
-
             builder.Services.AddDefaultIdentity<DistUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<IdentityContext>();
 

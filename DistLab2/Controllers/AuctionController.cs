@@ -2,11 +2,13 @@
 using DistLab2.Core.Interfaces;
 using DistLab2.Persistence;
 using DistLab2.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace DistLab2.Controllers
 {
+    [Authorize]
     public class AuctionController : Controller
     {
         private readonly IAuctionService AuctionService;

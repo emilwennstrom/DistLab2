@@ -20,12 +20,30 @@ namespace DistLab2.Persistence
                 Name = "Auction1",
                 Description = "Min första auktion",
                 StartingPrice = 0,
+                Username = "Algot",
                 CreationDate = DateTime.Now,
                 EndDate = DateTime.Now.AddYears(1),
                 Bids = new List<BidDb>()
             };
 
-            
+            db.Bids.Add(new BidDb { 
+                Id = -1, 
+                AuctionId = db.Id, 
+                BidAmount = 50, 
+                Username = "Emil",
+                DateOfBid = DateTime.Now.AddMinutes(10),
+            });
+
+            db.Bids.Add(new BidDb
+            {
+                Id = -2,
+                AuctionId = db.Id,
+                BidAmount = 58,
+                Username = "Albin",
+                DateOfBid = DateTime.Now.AddMinutes(20),
+            });
+
+
 
 
         }

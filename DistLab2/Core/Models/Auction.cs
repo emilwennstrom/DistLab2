@@ -9,20 +9,22 @@ namespace DistLab2.Core
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        //TODO: lägg till user
+        
+        public string Username { get; set; }
         public int StartingPrice { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
         public List<Bid> Bids { get; set; }
 
 
-        public Auction(int id, string name, string description, int startingPrice, DateTime creationDate, DateTime endDate, List<Bid>? bids)
+        public Auction(int id, string name, string description, string username, int startingPrice, DateTime creationDate, DateTime endDate, List<Bid>? bids)
         {
             Id = id;
             Name = name;
             Description = description;
             StartingPrice = startingPrice;
             CreationDate = creationDate;
+            Username = username;
             EndDate = endDate;
             Bids = bids;
         }
@@ -55,6 +57,10 @@ namespace DistLab2.Core
             Name = name;
             Description = description;
             StartingPrice = startingPrice;
+        }
+
+        public Auction()
+        {
         }
     }
 

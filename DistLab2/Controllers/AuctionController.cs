@@ -17,7 +17,7 @@ namespace DistLab2.Controllers
         // GET: AuctionController
         public ActionResult Index()
         {
-            List<Auction> auctions = (List<Auction>)Worker.Auctions.GetAll();
+            List<Auction> auctions = Worker.Auctions.GetAll().ToList();
             List<AuctionViewModel> auctionVm = new();
             foreach(Auction a in auctions) {
                 auctionVm.Add(AuctionViewModel.FromAuction(a));
@@ -46,7 +46,7 @@ namespace DistLab2.Controllers
 
         // GET: AuctionController/Create
         public ActionResult Create()
-        {   
+        {
             return View();
         }
 
@@ -57,7 +57,6 @@ namespace DistLab2.Controllers
         {
             if (ModelState.IsValid)
             {
-                TimeOnly time = new(12, 0);
                 Auction auction = new Auction(vm.Name, vm.Description, vm.StartingPrice);
                 auction.CreationDate = DateTime.Now;
                 auction.EndDate = DateTime.Now.AddMonths(1);

@@ -2,6 +2,7 @@ using DistLab2.Core.Interfaces;
 using DistLab2.Core.Repositories;
 using DistLab2.Persistence;
 using DistLab2.Persistence.MockClasses;
+using DistLab2.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2
@@ -17,13 +18,13 @@ namespace DistLab2
             
             builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
 
-            builder.Services.AddScoped<IAuctionRepository, MockAuctionRepository>();
+            builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // add auto mapper scanning (requires AutoMapper package)
-            builder.Services.AddAutoMapper(typeof(Program));
+            //builder.Services.AddAutoMapper(typeof(Program));
 
 
             var app = builder.Build();

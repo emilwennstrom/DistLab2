@@ -9,12 +9,12 @@ namespace DistLab2.Persistence.Repositories
     {
 
         private List<Auction> auctions;
-        private Mapper _mapper;
+        //private Mapper _mapper;
      
-        public AuctionRepository(AuctionDbContext context, Mapper mapper) : base(context)
+        public AuctionRepository(AuctionDbContext context) : base(context)
         {
             auctions = new List<Auction>();
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
         public IEnumerable<Auction> GetMostExpensive(int count)
@@ -27,7 +27,14 @@ namespace DistLab2.Persistence.Repositories
             {
                 foreach (var adb in auctionDbs) 
                 {
-                    var auction = _mapper.Map<Auction>(adb);
+                    var auction = new Auction();
+                    auction.StartingPrice = adb.StartingPrice;
+                    auction.CreationDate  = adb.CreationDate;
+                    auction.EndDate = adb.EndDate;
+                    auction.Id = adb.Id;
+                    auction.Username = adb.Username;
+                    auction.Description = adb.Description;
+                    auction.Name = adb.Name;
                     result.Add(auction);
                 }
             }

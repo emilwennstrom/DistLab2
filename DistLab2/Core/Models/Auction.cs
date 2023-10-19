@@ -1,4 +1,5 @@
-﻿using DistLab2.ViewModels;
+﻿using DistLab2.Persistence;
+using DistLab2.ViewModels;
 using System.Diagnostics;
 
 namespace DistLab2.Core
@@ -15,9 +16,9 @@ namespace DistLab2.Core
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
         public List<Bid> Bids { get; set; }
+        
 
-
-        public Auction(int id, string name, string description, string username, int startingPrice, DateTime creationDate, DateTime endDate, List<Bid>? bids)
+        public Auction(int id, string name, string description, string username, int startingPrice, DateTime creationDate, DateTime endDate, List<Bid> bids)
         {
             Id = id;
             Name = name;
@@ -43,13 +44,27 @@ namespace DistLab2.Core
             Bids = new List<Bid>();
         }
 
-        public Auction(string name, string description, int startingPrice, DateTime endDate)
+        public Auction() 
+        { 
+            Bids = new List<Bid>();
+        }
+
+        public Auction(string name, string description, int startingPrice, DateTime endDate, string username)
         {
             Name = name;
             Description = description;
             StartingPrice = startingPrice;
             EndDate = endDate;
+            Username = username;
             Bids = new List<Bid>();
+        }
+
+        public Auction(string name, string description, int startingPrice, string username)
+        {
+            Name = name;
+            Description = description;
+            StartingPrice = startingPrice;
+            Username = username;
         }
 
         public Auction(string name, string description, int startingPrice)
@@ -57,10 +72,6 @@ namespace DistLab2.Core
             Name = name;
             Description = description;
             StartingPrice = startingPrice;
-        }
-
-        public Auction()
-        {
         }
     }
 

@@ -1,6 +1,5 @@
 ﻿using DistLab2.Core;
-using DistLab2.Core.Interfaces;
-using DistLab2.Core.Repositories;
+using DistLab2.Persistence.Interfaces;
 using DistLab2.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 

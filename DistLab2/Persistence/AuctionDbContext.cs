@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DistLab2.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2.Persistence
 {
@@ -14,7 +15,7 @@ namespace DistLab2.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AuctionDb db = new AuctionDb
+            AuctionDb auctionDb1 = new AuctionDb
             {
                 Id = -1,
                 Name = "Auction1",
@@ -25,26 +26,27 @@ namespace DistLab2.Persistence
                 EndDate = DateTime.Now.AddYears(1),
                 Bids = new List<BidDb>()
             };
+            modelBuilder.Entity<AuctionDb>().HasData(auctionDb1);
 
-            db.Bids.Add(new BidDb { 
+            BidDb bid1 = new BidDb { 
                 Id = -1, 
-                AuctionId = db.Id, 
+                AuctionId = auctionDb1.Id, 
                 BidAmount = 50, 
                 Username = "Emil",
                 DateOfBid = DateTime.Now.AddMinutes(10),
-            });
+            };
 
-            db.Bids.Add(new BidDb
+            BidDb bid2 = new BidDb
             {
                 Id = -2,
-                AuctionId = db.Id,
+                AuctionId = auctionDb1.Id,
                 BidAmount = 58,
                 Username = "Albin",
                 DateOfBid = DateTime.Now.AddMinutes(20),
-            });
+            };
 
-
-
+            modelBuilder.Entity<BidDb>().HasData(bid1);
+            modelBuilder.Entity<BidDb>().HasData(bid2);
 
         }
 

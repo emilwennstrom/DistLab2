@@ -9,32 +9,21 @@ namespace DistLab2.Controllers
 {
     public class AuctionController : Controller
     {
-        private readonly IUnitOfWork Worker;
-        public AuctionController(IUnitOfWork worker) 
+        private readonly IAuctionService AuctionService;
+        public AuctionController(IAuctionService service) 
         {
-            Worker = worker;
+            AuctionService = service;
+
         }
         // GET: AuctionController
         public ActionResult Index()
         {
-            List<Auction> auctions = Worker.Auctions.GetAll().ToList();
+            List<Auction> auctions = AuctionService.GetAll();
             List<AuctionViewModel> auctionVm = new();
             foreach(Auction a in auctions) {
                 auctionVm.Add(AuctionViewModel.FromAuction(a));
             }
             return View(auctionVm);
-        }
-
-        [HttpGet]
-        public ActionResult Sort()
-        {
-            List<Auction> auctions = (List<Auction>)Worker.Auctions.GetMostExpensive(2);
-            List<AuctionViewModel> auctionVm = new();
-            foreach (Auction a in auctions)
-            {
-                auctionVm.Add(AuctionViewModel.FromAuction(a));
-            }
-            return View("Index", auctionVm);
         }
 
         // GET: AuctionController/Details/5
@@ -60,7 +49,8 @@ namespace DistLab2.Controllers
                 Auction auction = new Auction(vm.Name, vm.Description, vm.StartingPrice);
                 auction.CreationDate = DateTime.Now;
                 auction.EndDate = DateTime.Now.AddMonths(1);
-                Worker.Auctions.Add(auction);
+                auction.Username = "Username";
+               // Worker.Auctions.Add(auction);
                 //_worker.Complete(); Saves the db
                 return RedirectToAction("Index");
             } else return View();

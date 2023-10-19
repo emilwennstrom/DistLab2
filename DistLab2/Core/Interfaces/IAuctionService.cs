@@ -2,5 +2,6 @@
 {
     public interface IAuctionService
     {
+        public List<Auction> GetAll();
     }
 }

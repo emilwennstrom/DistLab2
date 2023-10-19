@@ -2,5 +2,6 @@
 {
     public interface IAuctionPersistence
     {
+        public List<Auction> GetAll();
     }
 }

@@ -1,6 +1,4 @@
-﻿using DistLab2.Core.Repositories;
-
-namespace DistLab2.Core.Interfaces
+﻿namespace DistLab2.Persistence.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

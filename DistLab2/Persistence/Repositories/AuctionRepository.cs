@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using DistLab2.Core;
-using DistLab2.Core.Repositories;
+using DistLab2.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2.Persistence.Repositories
 {
-    public class AuctionRepository : Repository<Auction>, IAuctionRepository
+    public class AuctionRepository : Repository<AuctionDb>, IAuctionRepository
     {
 
         private List<Auction> auctions;
@@ -17,31 +17,12 @@ namespace DistLab2.Persistence.Repositories
             //_mapper = mapper;
         }
 
-        public IEnumerable<Auction> GetMostExpensive(int count)
+        public IEnumerable<AuctionDb> GetMostExpensive(int count)
         {
             var auctionDbs = AuctionDbContext.AuctionDbs.OrderByDescending(c => c.StartingPrice).Take(count).ToList();
 
 
-            var result = new List<Auction>();
-            if (auctionDbs != null)
-            {
-                foreach (var adb in auctionDbs) 
-                {
-                    var auction = new Auction();
-                    auction.StartingPrice = adb.StartingPrice;
-                    auction.CreationDate  = adb.CreationDate;
-                    auction.EndDate = adb.EndDate;
-                    auction.Id = adb.Id;
-                    auction.Username = adb.Username;
-                    auction.Description = adb.Description;
-                    auction.Name = adb.Name;
-                    result.Add(auction);
-                }
-            }
-
-
-            return result;
-
+           return auctionDbs;
 
         }
 

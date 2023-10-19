@@ -1,6 +1,7 @@
 using DistLab2.Core.Interfaces;
-using DistLab2.Core.Repositories;
+using DistLab2.Core.Services;
 using DistLab2.Persistence;
+using DistLab2.Persistence.Interfaces;
 using DistLab2.Persistence.MockClasses;
 using DistLab2.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +21,10 @@ namespace DistLab2
 
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 
-            
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IAuctionPersistence, AuctionPersistence>();
+            builder.Services.AddScoped<IAuctionService, AuctionService>();
 
             // add auto mapper scanning (requires AutoMapper package)
             //builder.Services.AddAutoMapper(typeof(Program));

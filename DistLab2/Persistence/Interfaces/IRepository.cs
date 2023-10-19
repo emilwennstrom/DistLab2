@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace DistLab2.Core.Repositories
+namespace DistLab2.Persistence.Interfaces
 {
     public interface IRepository<T> where T : class
     {

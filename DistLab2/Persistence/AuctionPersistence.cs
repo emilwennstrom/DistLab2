@@ -59,6 +59,12 @@ namespace DistLab2.Persistence
             return auctions;
         }
 
+        private AuctionDb convertAuctionToAuctionDb(Auction auction)
+        {
+            AuctionDb auctionDb =  _mapper.Map<AuctionDb>(auction);  // Mapper
+            return auctionDb;
+        }
+
         public List<Auction> GetAll()
         {
             List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
@@ -74,6 +80,13 @@ namespace DistLab2.Persistence
                 .ToList();
 
             return convertAuctionDbToAuction(auctionDbList);
+        }
+
+        public void Add(Auction auction)
+        {
+            AuctionDb auctionDb = _mapper.Map<AuctionDb>(auction);
+            _unitOfWork.Auctions.Add(auctionDb);
+            _unitOfWork.Complete();
         }
     }
 }

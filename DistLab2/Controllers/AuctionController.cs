@@ -23,6 +23,7 @@ namespace DistLab2.Controllers
             string Username = User.Identity.Name; //name måste vara unikt. Dubbelkolla att det är så.
             if (Username != null)
             {
+                Debug.WriteLine("Identity is not null!");
                 List<Auction> auctions = AuctionService.GetAllByUsername(Username);
                 //List<Auction> auctions = AuctionService.GetAll();
                 List<AuctionViewModel> auctionVm = new();
@@ -42,13 +43,13 @@ namespace DistLab2.Controllers
             return View();
         }
 
-        // GET: AuctionController/Create
+        // GET: AuctionController/Create. Detta visas första gången användare går in på sidan. Då är formuläret tomt. 
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AuctionController/Create
+        // POST: AuctionController/Create. Det som händer när användaren har fyllt i formuläret och tryckt på submit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AuctionCreateViewModel vm)
@@ -56,11 +57,11 @@ namespace DistLab2.Controllers
             if (ModelState.IsValid)
             {
                 Auction auction = new Auction(vm.Name, vm.Description, vm.StartingPrice);
-                auction.CreationDate = DateTime.Now;
-                auction.EndDate = DateTime.Now.AddMonths(1);
-                auction.Username = "Username";
-               // Worker.Auctions.Add(auction);
-                //_worker.Complete(); Saves the db
+                auction.Username = User.Identity.Name;
+                auction.Name = vm.Name;
+                auction.Description = vm.Description;
+                auction.StartingPrice = vm.StartingPrice;
+                AuctionService.Add(auction);
                 return RedirectToAction("Index");
             } else return View();
         }

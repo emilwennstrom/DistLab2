@@ -18,5 +18,17 @@ namespace DistLab2.Core.Services
         {
             return _persistence.GetAll();
         }
+
+        public void Add(Auction auction)
+        {
+            //asume no bids on new auction.
+            //assume Username , title, description and starting price set.
+            if (auction == null || auction.Id!=0) { throw new InvalidDataException(); } //om id är satt till 0 kommer EntityFramework att auto-increment:a Idt i databasen automatiskt (pga id är satt till primary key)
+            auction.CreationDate= DateTime.Now;
+            auction.EndDate = DateTime.Now.AddMonths(1);
+            auction.Id = 0;
+            auction.Bids = new List<Bid>();
+            _persistence.Add(auction);
+        }
     }
 }

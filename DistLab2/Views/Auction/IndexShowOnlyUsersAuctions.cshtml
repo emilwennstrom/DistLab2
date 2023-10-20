@@ -1,16 +1,14 @@
 ﻿@model IEnumerable<DistLab2.ViewModels.AuctionViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Auctions";
 }
 
-<h1>Index</h1>
+<h1>My Auctions</h1>
 
 <p>
-    @Html.ActionLink("Sort", "Sort")
+    <a asp-action="Create">Create New</a>
 </p>
-<p>@Html.ActionLink("Create", "Create")</p>
-<p>@Html.ActionLink("Show My Auctions", "IndexShowOnlyUsersAuctions")</p>
 <table class="table">
     <thead>
         <tr>

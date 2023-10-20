@@ -22,19 +22,23 @@ namespace DistLab2.Controllers
         // GET: AuctionController
         public ActionResult Index()
         {
-            List<Auction> auctions = AuctionService.GetAll();
-            List<AuctionViewModel> auctionVm = new();
-            foreach (Auction a in auctions)
+            if (ModelState.IsValid)
             {
-                auctionVm.Add(AuctionViewModel.FromAuction(a));
-            }
-            return View(auctionVm);
+                List<Auction> auctions = AuctionService.GetAll();
+                List<AuctionViewModel> auctionVm = new();
+                foreach (Auction a in auctions)
+                {
+                    auctionVm.Add(AuctionViewModel.FromAuction(a));
+                }
+                return View(auctionVm);
+            }else return View();
         }
 
         //visar alla auctions som usern har själv lagt upp
         // GET: AuctionController
-        public ActionResult IndexShowUsersAuctions()
+        public ActionResult IndexShowOnlyUsersAuctions()
         {
+
             string Username = User.Identity.Name; //name måste vara unikt. Dubbelkolla att det är så.
             if (Username != null)
             {

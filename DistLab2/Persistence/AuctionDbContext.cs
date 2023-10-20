@@ -21,7 +21,7 @@ namespace DistLab2.Persistence
                 Name = "Auction1",
                 Description = "Min första auktion",
                 StartingPrice = 0,
-                Username = "Algot",
+                Username = "agge@hotmail.com",
                 CreationDate = DateTime.Now,
                 EndDate = DateTime.Now.AddYears(1),
                 Bids = new List<BidDb>()

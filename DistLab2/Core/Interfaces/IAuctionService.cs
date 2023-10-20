@@ -3,5 +3,6 @@
     public interface IAuctionService
     {
         public List<Auction> GetAll();
+        public List<Auction> GetAllByUsername(string username);
     }
 }

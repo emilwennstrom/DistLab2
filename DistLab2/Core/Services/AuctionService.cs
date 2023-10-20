@@ -9,6 +9,10 @@ namespace DistLab2.Core.Services
         {
             _persistence = persistence;
         }
+        public List<Auction> GetAllByUsername(string username)
+        {
+            return _persistence.GetAllByUsername(username);
+        }
 
         public List<Auction> GetAll()
         {

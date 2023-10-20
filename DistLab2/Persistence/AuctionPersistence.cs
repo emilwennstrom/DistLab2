@@ -19,7 +19,7 @@ namespace DistLab2.Persistence
         public List<Auction> GetAll2()
         {
             List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
-            // Mapper
+            // utan automapper
             List<Auction> auctions = new List<Auction>();
             foreach (var auctionDb in auctionDbList)
             {
@@ -43,9 +43,8 @@ namespace DistLab2.Persistence
             return auctions;
         } */
 
-        public List<Auction> GetAll()
+        private List<Auction> convertAuctionDbToAuction(List<AuctionDb> auctionDbList)
         {
-            List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
             List<Auction> auctions = new List<Auction>();
             foreach (var auctionDb in auctionDbList)
             {
@@ -55,16 +54,26 @@ namespace DistLab2.Persistence
                     Bid bid = _mapper.Map<Bid>(dbBid);  // Mapper
                     auction.Bids.Add(bid);
                 }
-
                 auctions.Add(auction);
             }
             return auctions;
         }
 
+        public List<Auction> GetAll()
+        {
+            List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
+            return convertAuctionDbToAuction(auctionDbList);
+        }
+
 
         public List<Auction> GetAllByUsername(string username)
         {
-            throw new NotImplementedException();
+            List<AuctionDb> auctionDbList = _unitOfWork.Auctions
+                .GetAll()
+                .Where(p => p.Username.Equals(username))
+                .ToList();
+
+            return convertAuctionDbToAuction(auctionDbList);
         }
     }
 }

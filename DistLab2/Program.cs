@@ -34,7 +34,7 @@ namespace DistLab2
             builder.Services.AddScoped<IAuctionService, AuctionService>();
 
             // add auto mapper scanning (requires AutoMapper package)
-            //builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(typeof(Program));
 
 
             var app = builder.Build();

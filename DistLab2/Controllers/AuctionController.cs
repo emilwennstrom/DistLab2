@@ -86,7 +86,12 @@ namespace DistLab2.Controllers
         // GET: AuctionController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            if(AuctionService.userIsOwnerOfAuction(User.Identity.Name, id))
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: AuctionController/Edit/5
@@ -94,9 +99,12 @@ namespace DistLab2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection, AuctionViewModel auction)
         {
+            //if (!AuctionService.userIsOwnerOfAuction(User.Identity.Name, id)) return RedirectToAction("Index");
+           //TODO: man borde validera här också. Den ovan funkar inte av någon anledning
             //måste man ha en IFormCollection????
             try
             {
+                //TODO: kollar inte om ModelState är valid. Det funkade inte för mig när jag testade med det.
                 AuctionService.editAuctionDescriptionById(auction.Description, id);
                 return RedirectToAction("Index");
                 //return RedirectToAction(nameof(Index));

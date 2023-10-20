@@ -96,5 +96,16 @@ namespace DistLab2.Persistence
             auctionDb.Description = description;
             _unitOfWork.Complete();
         }
+
+        public bool userIsOwnerOfAuction(string username, int auctionId)
+        {
+            if (username == null || username.Length == 0) { return false; }
+            AuctionDb auctionDb = _unitOfWork.Auctions.Get(auctionId);
+            if(auctionDb == null) { return false;}
+            if(auctionDb.Username == username) {
+                _unitOfWork.Dispose();
+                return true; }
+            return false;
+        }
     }
 }

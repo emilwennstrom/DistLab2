@@ -35,5 +35,11 @@ namespace DistLab2.Core.Services
         {
             _persistence.editAuctionDescriptionById(description, id);
         }
+
+        public bool userIsOwnerOfAuction(string username, int auctionId)
+        {
+            if(username==null || username.Length==0) { return false; }
+            return _persistence.userIsOwnerOfAuction(username, auctionId);
+        }
     }
 }

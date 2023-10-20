@@ -92,11 +92,14 @@ namespace DistLab2.Controllers
         // POST: AuctionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, IFormCollection collection, AuctionViewModel auction)
         {
+            //måste man ha en IFormCollection????
             try
             {
-                return RedirectToAction(nameof(Index));
+                AuctionService.editAuctionDescriptionById(auction.Description, id);
+                return RedirectToAction("Index");
+                //return RedirectToAction(nameof(Index));
             }
             catch
             {

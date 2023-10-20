@@ -2,6 +2,7 @@
 using DistLab2.Core;
 using DistLab2.Core.Interfaces;
 using DistLab2.Persistence.Interfaces;
+using System.Diagnostics;
 
 namespace DistLab2.Persistence
 {
@@ -86,6 +87,13 @@ namespace DistLab2.Persistence
         {
             AuctionDb auctionDb = _mapper.Map<AuctionDb>(auction);
             _unitOfWork.Auctions.Add(auctionDb);
+            _unitOfWork.Complete();
+        }
+
+        public void editAuctionDescriptionById(string description, int id)
+        {
+            AuctionDb auctionDb= _unitOfWork.Auctions.Get(id);
+            auctionDb.Description = description;
             _unitOfWork.Complete();
         }
     }

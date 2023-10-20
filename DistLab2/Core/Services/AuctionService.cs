@@ -30,5 +30,10 @@ namespace DistLab2.Core.Services
             auction.Bids = new List<Bid>();
             _persistence.Add(auction);
         }
+
+        public void editAuctionDescriptionById(string description, int id)
+        {
+            _persistence.editAuctionDescriptionById(description, id);
+        }
     }
 }

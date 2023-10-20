@@ -5,6 +5,7 @@
         public List<Auction> GetAll();
         public List<Auction> GetAllByUsername(string username);
 
-        void Add(Auction auction);
+        public void editAuctionDescriptionById(String description, int id);
+        public void Add(Auction auction);
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DistLab2.Data;
 using DistLab2.Areas.Identity.Data;
+using DistLab2.Persistence.Services;
 
 namespace DistLab2
 {

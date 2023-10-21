@@ -1,4 +1,5 @@
 ﻿using DistLab2.Core;
+using DistLab2.Persistence.DAO;
 
 namespace DistLab2.Persistence.Interfaces
 {

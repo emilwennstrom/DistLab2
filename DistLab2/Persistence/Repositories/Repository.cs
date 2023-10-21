@@ -31,12 +31,8 @@ namespace DistLab2.Persistence.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            List<T> list = _context.Set<T>().ToList();
+            return _context.Set<T>();
 
-            Debug.WriteLine(list.Count);
-
-
-            return list;
         }
 
         public void Remove(T item)

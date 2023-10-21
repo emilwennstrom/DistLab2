@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DistLab2.Persistence
+namespace DistLab2.Persistence.DAO
 {
     public class AuctionDb
     {
@@ -13,10 +13,10 @@ namespace DistLab2.Persistence
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        
+
         [Required]
         public string Username { get; set; }
-       
+
         [Required]
         public int StartingPrice { get; set; }
         [Required]

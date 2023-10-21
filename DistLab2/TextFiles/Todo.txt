@@ -24,8 +24,8 @@ En användare ska kunna
 
  - skapa en auktion, OK
  - editera beskrivningen av en auktion (men ingen annan information om auktionen) OK
- - lista alla pågående auktioner (som ej passerat tid då auktionen går ut) - sorterade efter slutdatum,
- - se detaljer, inklusive lagda bud, för en pågående auktion - buden ska vara sorterade så att det högsta ligger först,
+ - lista alla pågående auktioner (som ej passerat tid då auktionen går ut) - sorterade efter slutdatum,		OK
+ - se detaljer, inklusive lagda bud, för en pågående auktion - buden ska vara sorterade så att det högsta ligger först,  OK
  - lägga bud på en pågående auktion, som inte är ens egen (budet måste vara högre än tidigare bud/utgångspris),
  - lista alla auktioner där hen lagt bud och som är pågående,
  - lista alla avslutade auktioner som hen vunnit.

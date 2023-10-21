@@ -1,0 +1,71 @@
+﻿@model DistLab2.ViewModels.BidDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>BidDetailViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Auction Name: 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AuctionName)
+        </dd>
+    </dl>
+</div>
+
+@{
+    IEnumerable<BidViewModel> bidViews = Model.BidsVm;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Bidder
+            
+            </th>
+            <th>
+                Date of bid
+            </th>
+            <th>
+                Bids
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in bidViews)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BidAmount) kr
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /*id=item.Id */}) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

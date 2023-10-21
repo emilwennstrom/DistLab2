@@ -54,10 +54,18 @@ namespace DistLab2.Controllers
         }
 
         // GET: AuctionController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string name)
         {
+            List<Bid> bids = AuctionService.GetBids(id);
+            Debug.WriteLine(bids.Count);
+            if (bids is not null)
+            {
+                BidDetailViewModel vm = BidDetailViewModel.FromBid(bids, name);
+                return View(vm);
 
-            return View();
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: AuctionController/Create. Detta visas första gången användare går in på sidan. Då är formuläret tomt. 

@@ -46,5 +46,10 @@ namespace DistLab2.Core.Services
         {
             return _persistence.GetOngoing();
         }
+
+        public List<Bid> GetBids(int auctionId)
+        {
+            return _persistence.GetBids(auctionId);
+        }
     }
 }

@@ -10,5 +10,8 @@
         public void Add(Auction auction);
 
         public List<Auction> GetOngoing();
+
+        public List<Bid> GetBids(int auctionId);
+
     }
 }

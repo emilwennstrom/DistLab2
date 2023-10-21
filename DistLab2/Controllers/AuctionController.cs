@@ -176,6 +176,7 @@ namespace DistLab2.Controllers
 
             CreateBidViewModel vm = new CreateBidViewModel();
             vm.CurrentHighestBid = AuctionService.GetHighestBid(id);
+            Debug.WriteLine(vm.CurrentHighestBid);
             vm.AuctionId = id;
             vm.AuctionName = auctionName;
             

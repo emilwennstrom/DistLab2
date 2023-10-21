@@ -118,14 +118,13 @@ namespace DistLab2.Persistence.Services
         {
 
             //double highest = _unitOfWork.Bids.Find(p => p.AuctionId == (auctionId)).Max(p => p.BidAmount); Exception när inga bud är lagda
-
-            double highestBid = 0;
             var bids = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId);
-            if (bids == null)
+            if (!bids.Any())
             {
-                return highestBid;
+                return _unitOfWork.Auctions.Get(auctionId).StartingPrice;   // Om inga bud finns, sätt current till startingprice 
             }
-            
+
+            double highestBid = -1;
             foreach(var bidDb in bids)
             {
                 if(bidDb.BidAmount > highestBid)
@@ -142,7 +141,7 @@ namespace DistLab2.Persistence.Services
         public List<Auction> GetAuctionsWithUserBids(string username)
         {
             List<BidDb> bidDbs = _unitOfWork.Bids.Find(p => p.Username == username).ToList();
-            HashSet<AuctionDb> auctionDbs = new();
+            HashSet<AuctionDb> auctionDbs = new();  // HashSet för att undvika fallet om användare har lagt flera bud på samma auction, kanske inte behövs
             foreach (var bidDb in bidDbs) {
                 var item = _unitOfWork.Auctions.Find(p => p.Id == bidDb.AuctionId).Where(p => p.EndDate > DateTime.Now).First();
                 auctionDbs.Add(item);

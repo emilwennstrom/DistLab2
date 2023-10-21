@@ -29,7 +29,7 @@ namespace DistLab2.ViewModels
             if (BidAmount <= CurrentHighestBid)
             {
                 yield return new ValidationResult(
-                    $"BidAmount must be greater than current bid: ({CurrentHighestBid}).",
+                    $"BidAmount must be greater than current price: ({CurrentHighestBid}).",
                     new[] { nameof(BidAmount) }
                 );
             }

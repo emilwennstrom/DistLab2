@@ -2,18 +2,18 @@
 {
     public interface IAuctionPersistence
     {
-        public List<Auction> GetAll();
-        public List<Auction> GetAllByUsername(string username);
+        List<Auction> GetAll();
+        List<Auction> GetAllByUsername(string username);
+        void EditDescription(string description, int id);
+        bool UserIsOwner(string username, int auctionId);
+        void Add(Auction auction);
 
-        public void EditDescription(string description, int id);
-        public bool UserIsOwner(string username, int auctionId);
-        public void Add(Auction auction);
+        List<Auction> GetOngoing();
 
-        public List<Auction> GetOngoing();
+        List<Bid> GetBids(int auctionId);
 
-        public List<Bid> GetBids(int auctionId);
-
-        public double GetHighestBid(int auctionId);
+        double GetHighestBid(int auctionId);
         void AddBid(Bid bid);
+        List<Auction> GetAuctionsWithUserBids(string username);
     }
 }

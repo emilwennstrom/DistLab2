@@ -26,7 +26,7 @@ namespace DistLab2.Persistence.DAO
         public List<BidDb> Bids { get; set; } = new List<BidDb>();
 
 
-        public override string? ToString()
+        public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
 

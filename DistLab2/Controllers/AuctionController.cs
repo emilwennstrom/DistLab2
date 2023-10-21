@@ -38,11 +38,10 @@ namespace DistLab2.Controllers
         // GET: AuctionController
         public ActionResult MyAuctions()
         {
-
-            string Username = User.Identity.Name; //name måste vara unikt. Dubbelkolla att det är så.
-            if (Username != null)
+            string currentUser = GetCurrentUser(); //name måste vara unikt. Dubbelkolla att det är så.
+            if (currentUser != null)
             {
-                List<Auction> auctions = AuctionService.GetAllByUsername(Username);
+                List<Auction> auctions = AuctionService.GetAllByUsername(currentUser);
                 List<AuctionViewModel> auctionVm = new();
                 foreach (Auction a in auctions)
                 {
@@ -51,6 +50,27 @@ namespace DistLab2.Controllers
                 return View(auctionVm);
             }
             return View();
+        }
+
+        //Hämtar Auctions som en användare lagt bud på
+        public ActionResult MyAuctionBids()
+        {
+
+            string currentUser = GetCurrentUser();
+            if (currentUser == null) return RedirectToAction("Index");
+
+            List<Auction> userBiddedAuctions = AuctionService.GetAuctionsWithUserBids(currentUser);
+            Debug.WriteLine(userBiddedAuctions.Count);
+
+
+            List<AuctionViewModel> auctionViews = new();
+
+            foreach (Auction auction in userBiddedAuctions)
+            {
+                AuctionViewModel auctionViewModel = AuctionViewModel.FromAuction(auction);
+                auctionViews.Add(auctionViewModel);
+            }
+            return View(auctionViews);
         }
 
         // GET: AuctionController/Details/5
@@ -81,7 +101,7 @@ namespace DistLab2.Controllers
             if (ModelState.IsValid)
             {
                 Auction auction = new Auction(vm.Name, vm.Description, vm.StartingPrice);
-                auction.Username = User.Identity.Name;
+                auction.Username = GetCurrentUser();
                 auction.Name = vm.Name;
                 auction.Description = vm.Description;
                 auction.StartingPrice = vm.StartingPrice;
@@ -187,7 +207,7 @@ namespace DistLab2.Controllers
 
         
 
-        private string? GetCurrentUser()
+        private string GetCurrentUser()
         {
             return User.Identity.Name;
         }

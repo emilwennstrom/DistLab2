@@ -113,10 +113,41 @@ namespace DistLab2.Persistence.Services
             return bids;
         }
 
-        public double GetHighestBid(int auctionId)
+
+        public double GetHighestBid(int auctionId) 
         {
-            double highestBid = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId).Max(p => p.BidAmount);
+
+            //double highest = _unitOfWork.Bids.Find(p => p.AuctionId == (auctionId)).Max(p => p.BidAmount); Exception när inga bud är lagda
+
+            double highestBid = 0;
+            var bids = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId);
+            if (bids == null)
+            {
+                return highestBid;
+            }
+            
+            foreach(var bidDb in bids)
+            {
+                if(bidDb.BidAmount > highestBid)
+                {
+                    highestBid = bidDb.BidAmount;
+                }
+            }
+            
+           
             return highestBid;
+        }
+
+        // Hämtar alla auctions som en specifik användare lagt bud på.
+        public List<Auction> GetAuctionsWithUserBids(string username)
+        {
+            List<BidDb> bidDbs = _unitOfWork.Bids.Find(p => p.Username == username).ToList();
+            HashSet<AuctionDb> auctionDbs = new();
+            foreach (var bidDb in bidDbs) {
+                var item = _unitOfWork.Auctions.Find(p => p.Id == bidDb.AuctionId).Where(p => p.EndDate > DateTime.Now).First();
+                auctionDbs.Add(item);
+            }
+            return ConvertAuctionDbToAuction(auctionDbs.ToList());
         }
 
         public void AddBid(Bid bid)
@@ -125,41 +156,6 @@ namespace DistLab2.Persistence.Services
             _unitOfWork.Bids.Add(bidDb);
             _unitOfWork.Complete();
         }
-
-
-
-
-
-
-
-
-        /*
-       public List<Auction> GetAll2()
-       {
-           List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
-           // utan automapper
-           List<Auction> auctions = new List<Auction>();
-           foreach (var auctionDb in auctionDbList)
-           {
-
-               Auction auction = new Auction();
-               auction.Id = auctionDb.Id;
-               auction.Name = auctionDb.Name;
-               auction.CreationDate = auctionDb.CreationDate;
-               auction.EndDate = auctionDb.EndDate;
-               auction.Username = auctionDb.Username;
-               auction.Description = auctionDb.Description;
-
-
-               foreach(BidDb dbBid in auctionDb.Bids) 
-               {
-                   auction.Bids.Add(new Bid(dbBid.Id, dbBid.DateOfBid, dbBid.BidAmount, dbBid.Username));
-               }
-
-               auctions.Add(auction);
-           }
-           return auctions;
-       } */
 
     }
 }

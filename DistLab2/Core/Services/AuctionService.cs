@@ -51,5 +51,15 @@ namespace DistLab2.Core.Services
         {
             return _persistence.GetBids(auctionId);
         }
+
+        public double GetHighestBid(int id)
+        {
+            return _persistence.GetHighestBid(id);
+        }
+
+        public void AddBid(Bid bid)
+        {
+            _persistence.AddBid(bid);
+        }
     }
 }

@@ -58,8 +58,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id, name = item.Name}) 
-                    
+                    @Html.ActionLink("Details", "Details", new { id=item.Id, name = item.Name}) |
+                    @Html.ActionLink("Add bid", "AddBid", new { id = item.Id, username = item.Username, auctionName = item.Name})
             </td>
         </tr>
 }

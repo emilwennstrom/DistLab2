@@ -58,14 +58,13 @@ namespace DistLab2.Controllers
         {
             List<Bid> bids = AuctionService.GetBids(id);
             Debug.WriteLine(bids.Count);
-            if (bids is not null)
+            if (bids.Count > 0)
             {
                 BidDetailViewModel vm = BidDetailViewModel.FromBid(bids, name);
                 return View(vm);
 
             }
-
-            return RedirectToAction("Index");
+            return Redirect(Request.Headers["Referer"].ToString()); // Returns to previous page if there are no bids
         }
 
         // GET: AuctionController/Create. Detta visas första gången användare går in på sidan. Då är formuläret tomt. 
@@ -94,8 +93,7 @@ namespace DistLab2.Controllers
         // GET: AuctionController/Edit/5
         public ActionResult Edit(int id)
         {
-
-            if(AuctionService.UserIsOwner(User.Identity.Name, id))
+            if(AuctionService.UserIsOwner(GetCurrentUser(), id))
             {
                 return View();
             }
@@ -144,11 +142,58 @@ namespace DistLab2.Controllers
             }
         }
 
+        
+        public ActionResult AddBid(int id, string username, string auctionName)
+        {
+            
+            string? currentUser = GetCurrentUser();
 
+            if (currentUser == null || currentUser == username)
+            {
+                var referer = Request.Headers["Referer"].ToString(); // If no user or current user auction
+                return Redirect(referer);
+            }
+
+            CreateBidViewModel vm = new CreateBidViewModel();
+            vm.CurrentHighestBid = AuctionService.GetHighestBid(id);
+            vm.AuctionId = id;
+            vm.AuctionName = auctionName;
+            
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateBid(CreateBidViewModel vm)
+        {
+            if (User.Identity.Name != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    Bid bid = new Bid(DateTime.Now, vm.BidAmount, User.Identity.Name, vm.AuctionId);
+                    Debug.WriteLine("Valid");
+                    AuctionService.AddBid(bid);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View("AddBid", vm);
+                }
+            }
+
+            return RedirectToAction("Index");   
+        }
 
         
 
+        private string? GetCurrentUser()
+        {
+            return User.Identity.Name;
+        }
 
+
+       
     }
 
 

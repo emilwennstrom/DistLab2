@@ -4,16 +4,23 @@ namespace DistLab2.Core
 {
     public class Bid
     {
-        public Bid(int id, DateTime dateOfBid, double bidAmount, string username)
+       
+
+        public Bid(DateTime now, double bidAmount, string name, int auctionId)
         {
-            Id = id;  
-            DateOfBid = dateOfBid;
+            DateOfBid = now;
             BidAmount = bidAmount;
-            Username = username;
+            Username = name;
+            AuctionId = auctionId;
         }
+
+        public Bid() { }
+
+      
         public int Id { get; set; }
         public DateTime DateOfBid { get; set; }
         public double BidAmount { get; set; }
         public string Username { get; set; }
+        public int AuctionId { get; set;}
     }
 }

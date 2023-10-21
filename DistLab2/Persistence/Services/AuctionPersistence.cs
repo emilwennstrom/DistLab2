@@ -113,8 +113,21 @@ namespace DistLab2.Persistence.Services
             return bids;
         }
 
+        public double GetHighestBid(int auctionId)
+        {
+            double highestBid = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId).Max(p => p.BidAmount);
+            return highestBid;
+        }
 
-        
+        public void AddBid(Bid bid)
+        {
+            BidDb bidDb = _mapper.Map<BidDb>(bid);
+            _unitOfWork.Bids.Add(bidDb);
+            _unitOfWork.Complete();
+        }
+
+
+
 
 
 

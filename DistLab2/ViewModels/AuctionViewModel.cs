@@ -1,4 +1,5 @@
-﻿using DistLab2.Core;
+﻿using Azure.Identity;
+using DistLab2.Core;
 using System.Diagnostics;
 
 namespace DistLab2.ViewModels
@@ -12,6 +13,7 @@ namespace DistLab2.ViewModels
         public int StartingPrice { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string Username { get; set; }
         public List<BidViewModel> Bids { get; set; } = new();
 
         public static AuctionViewModel FromAuction(Auction auction)
@@ -23,7 +25,8 @@ namespace DistLab2.ViewModels
                 Description = auction.Description,
                 StartingPrice = auction.StartingPrice,
                 CreationDate = auction.CreationDate,
-                EndDate = auction.EndDate
+                EndDate = auction.EndDate,
+                Username = auction.Username,
             };
             if (auction.Bids != null ) 
             {

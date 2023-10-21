@@ -13,5 +13,7 @@
 
         public List<Bid> GetBids(int auctionId);
 
+        public double GetHighestBid(int auctionId);
+        void AddBid(Bid bid);
     }
 }

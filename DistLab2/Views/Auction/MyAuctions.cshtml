@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<DistLab2.ViewModels.AuctionViewModel>
 
 @{
-    ViewData["Title"] = "My Auctions";
+    ViewData["Title"] = "MyAuctions";
 }
 
-<h1>My Auctions</h1>
+<h1>MyAuctions</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -55,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

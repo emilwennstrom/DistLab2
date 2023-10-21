@@ -1,14 +1,10 @@
 ﻿using DistLab2.Core;
-using DistLab2.Core.Interfaces;
 using DistLab2.Persistence.Interfaces;
 using DistLab2.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace DistLab2.Persistence.MockClasses
 {
-    public class MockAuctionRepository : Repository<AuctionDb>, IAuctionRepository
+    public class MockAuctionRepository : Repository<AuctionDb>
     {
 
 
@@ -24,9 +20,16 @@ namespace DistLab2.Persistence.MockClasses
             throw new NotImplementedException();
         }
 
-        IEnumerable<AuctionDb> IAuctionRepository.GetMostExpensive(int count)
+        public IEnumerable<AuctionDb> GetByUsername(string username)
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<AuctionDb> GetOngoing()
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

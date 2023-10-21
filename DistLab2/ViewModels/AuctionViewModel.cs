@@ -30,6 +30,7 @@ namespace DistLab2.ViewModels
                 foreach(var bid in auction.Bids) // Ska en lista skapas när man skapar en auction från 
                 {                               // Eller ska den skapas när första budet läggs till
                     vm.Bids.Add(BidViewModel.FromBid(bid));
+                    Debug.WriteLine(bid.Username);
                 }
             }
             return vm;

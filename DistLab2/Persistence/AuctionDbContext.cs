@@ -26,8 +26,7 @@ namespace DistLab2.Persistence
                 EndDate = DateTime.Now.AddYears(1),
                 Bids = new List<BidDb>()
             };
-            modelBuilder.Entity<AuctionDb>().HasData(auctionDb1);
-
+           
             BidDb bid1 = new BidDb { 
                 Id = -1, 
                 AuctionId = auctionDb1.Id, 
@@ -44,9 +43,47 @@ namespace DistLab2.Persistence
                 Username = "Albin",
                 DateOfBid = DateTime.Now.AddMinutes(20),
             };
-
+            modelBuilder.Entity<AuctionDb>().HasData(auctionDb1);
             modelBuilder.Entity<BidDb>().HasData(bid1);
             modelBuilder.Entity<BidDb>().HasData(bid2);
+
+
+
+            AuctionDb auctionDb2 = new AuctionDb
+            {
+                Id = -2,
+                Name = "Auction2",
+                Description = "Min andra auktion",
+                StartingPrice = 100,
+                Username = "agge@hotmail.com",
+                CreationDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(-10), // Ended
+                Bids = new List<BidDb>()
+            };
+
+            BidDb bid21 = new BidDb
+            {
+                Id = -3,
+                AuctionId = auctionDb2.Id,
+                BidAmount = 501,
+                Username = "Emil",
+                DateOfBid = DateTime.Now.AddMinutes(-40),
+            };
+
+            BidDb bid22 = new BidDb
+            {
+                Id = -4,
+                AuctionId = auctionDb2.Id,
+                BidAmount = 5800,
+                Username = "Albin",
+                DateOfBid = DateTime.Now.AddMinutes(-20),
+            };
+
+            modelBuilder.Entity<AuctionDb>().HasData(auctionDb2);
+            modelBuilder.Entity<BidDb>().HasData(bid21);
+            modelBuilder.Entity<BidDb>().HasData(bid22);
+
+
 
         }
 

@@ -16,35 +16,9 @@ namespace DistLab2.Persistence
             _mapper = mapper;
         }
 
-        /*
-        public List<Auction> GetAll2()
-        {
-            List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
-            // utan automapper
-            List<Auction> auctions = new List<Auction>();
-            foreach (var auctionDb in auctionDbList)
-            {
-              
-                Auction auction = new Auction();
-                auction.Id = auctionDb.Id;
-                auction.Name = auctionDb.Name;
-                auction.CreationDate = auctionDb.CreationDate;
-                auction.EndDate = auctionDb.EndDate;
-                auction.Username = auctionDb.Username;
-                auction.Description = auctionDb.Description;
-                
+       
 
-                foreach(BidDb dbBid in auctionDb.Bids) 
-                {
-                    auction.Bids.Add(new Bid(dbBid.Id, dbBid.DateOfBid, dbBid.BidAmount, dbBid.Username));
-                }
-
-                auctions.Add(auction);
-            }
-            return auctions;
-        } */
-
-        private List<Auction> convertAuctionDbToAuction(List<AuctionDb> auctionDbList)
+        private List<Auction> ConvertAuctionDbToAuction(List<AuctionDb> auctionDbList)
         {
             List<Auction> auctions = new List<Auction>();
             foreach (var auctionDb in auctionDbList)
@@ -53,6 +27,7 @@ namespace DistLab2.Persistence
                 foreach (BidDb dbBid in auctionDb.Bids)
                 {
                     Bid bid = _mapper.Map<Bid>(dbBid);  // Mapper
+                    Debug.WriteLine(bid.Username);
                     auction.Bids.Add(bid);
                 }
                 auctions.Add(auction);
@@ -60,7 +35,7 @@ namespace DistLab2.Persistence
             return auctions;
         }
 
-        private AuctionDb convertAuctionToAuctionDb(Auction auction)
+        private AuctionDb ConvertAuctionToAuctionDb(Auction auction)
         {
             AuctionDb auctionDb =  _mapper.Map<AuctionDb>(auction);  // Mapper
             return auctionDb;
@@ -69,18 +44,25 @@ namespace DistLab2.Persistence
         public List<Auction> GetAll()
         {
             List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
-            return convertAuctionDbToAuction(auctionDbList);
+
+
+
+
+            foreach (AuctionDb adb in auctionDbList)
+            {
+                Debug.WriteLine(adb.ToString());
+            }
+
+
+
+            return ConvertAuctionDbToAuction(auctionDbList);
         }
 
 
         public List<Auction> GetAllByUsername(string username)
         {
-            List<AuctionDb> auctionDbList = _unitOfWork.Auctions
-                .GetAll()
-                .Where(p => p.Username.Equals(username))
-                .ToList();
-
-            return convertAuctionDbToAuction(auctionDbList);
+            List<AuctionDb> dbList = _unitOfWork.Auctions.GetAllByUsername(username).ToList();
+            return ConvertAuctionDbToAuction(dbList);
         }
 
         public void Add(Auction auction)
@@ -90,14 +72,14 @@ namespace DistLab2.Persistence
             _unitOfWork.Complete();
         }
 
-        public void editAuctionDescriptionById(string description, int id)
+        public void EditDescription(string description, int id)
         {
-            AuctionDb auctionDb= _unitOfWork.Auctions.Get(id);
+            AuctionDb auctionDb = _unitOfWork.Auctions.Get(id);
             auctionDb.Description = description;
             _unitOfWork.Complete();
         }
 
-        public bool userIsOwnerOfAuction(string username, int auctionId)
+        public bool UserIsOwner(string username, int auctionId)
         {
             if (username == null || username.Length == 0) { return false; }
             AuctionDb auctionDb = _unitOfWork.Auctions.Get(auctionId);
@@ -107,5 +89,49 @@ namespace DistLab2.Persistence
                 return true; }
             return false;
         }
+
+        public List<Auction> GetOngoing()
+        {
+            var ongoingAuctions = _unitOfWork.Auctions.GetOngoing().ToList();
+            return ConvertAuctionDbToAuction(ongoingAuctions);
+        }
+
+
+
+
+
+
+
+
+
+
+        /*
+       public List<Auction> GetAll2()
+       {
+           List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
+           // utan automapper
+           List<Auction> auctions = new List<Auction>();
+           foreach (var auctionDb in auctionDbList)
+           {
+
+               Auction auction = new Auction();
+               auction.Id = auctionDb.Id;
+               auction.Name = auctionDb.Name;
+               auction.CreationDate = auctionDb.CreationDate;
+               auction.EndDate = auctionDb.EndDate;
+               auction.Username = auctionDb.Username;
+               auction.Description = auctionDb.Description;
+
+
+               foreach(BidDb dbBid in auctionDb.Bids) 
+               {
+                   auction.Bids.Add(new Bid(dbBid.Id, dbBid.DateOfBid, dbBid.BidAmount, dbBid.Username));
+               }
+
+               auctions.Add(auction);
+           }
+           return auctions;
+       } */
+
     }
 }

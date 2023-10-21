@@ -6,5 +6,8 @@ namespace DistLab2.Persistence.Interfaces
     {
         public void EditAuction(Auction auction);
         public IEnumerable<AuctionDb> GetMostExpensive(int count);
+
+        public IEnumerable<AuctionDb> GetOngoing();
+        public IEnumerable<AuctionDb> GetAllByUsername(string username);
     }
 }

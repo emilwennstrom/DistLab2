@@ -4,7 +4,7 @@ namespace DistLab2.Core.Services
 {
     public class AuctionService : IAuctionService
     {
-        IAuctionPersistence _persistence;
+        private readonly IAuctionPersistence _persistence;
         public AuctionService(IAuctionPersistence persistence)
         {
             _persistence = persistence;
@@ -31,15 +31,20 @@ namespace DistLab2.Core.Services
             _persistence.Add(auction);
         }
 
-        public void editAuctionDescriptionById(string description, int id)
+        public void EditDescription(string description, int id)
         {
-            _persistence.editAuctionDescriptionById(description, id);
+            _persistence.EditDescription(description, id);
         }
 
-        public bool userIsOwnerOfAuction(string username, int auctionId)
+        public bool UserIsOwner(string username, int auctionId)
         {
             if(username==null || username.Length==0) { return false; }
-            return _persistence.userIsOwnerOfAuction(username, auctionId);
+            return _persistence.UserIsOwner(username, auctionId);
+        }
+
+        public List<Auction> GetOngoing()
+        {
+            return _persistence.GetOngoing();
         }
     }
 }

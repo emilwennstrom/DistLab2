@@ -24,7 +24,7 @@ namespace DistLab2.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Auction> auctions = AuctionService.GetAll();
+                List<Auction> auctions = AuctionService.GetOngoing();
                 List<AuctionViewModel> auctionVm = new();
                 foreach (Auction a in auctions)
                 {
@@ -36,7 +36,7 @@ namespace DistLab2.Controllers
 
         //visar alla auctions som usern har själv lagt upp
         // GET: AuctionController
-        public ActionResult IndexShowOnlyUsersAuctions()
+        public ActionResult MyAuctions()
         {
 
             string Username = User.Identity.Name; //name måste vara unikt. Dubbelkolla att det är så.
@@ -87,7 +87,7 @@ namespace DistLab2.Controllers
         public ActionResult Edit(int id)
         {
 
-            if(AuctionService.userIsOwnerOfAuction(User.Identity.Name, id))
+            if(AuctionService.UserIsOwner(User.Identity.Name, id))
             {
                 return View();
             }
@@ -105,7 +105,7 @@ namespace DistLab2.Controllers
             try
             {
                 //TODO: kollar inte om ModelState är valid. Det funkade inte för mig när jag testade med det.
-                AuctionService.editAuctionDescriptionById(auction.Description, id);
+                AuctionService.EditDescription(auction.Description, id);
                 return RedirectToAction("Index");
                 //return RedirectToAction(nameof(Index));
             }
@@ -135,5 +135,13 @@ namespace DistLab2.Controllers
                 return View();
             }
         }
+
+
+
+        
+
+
     }
+
+
 }

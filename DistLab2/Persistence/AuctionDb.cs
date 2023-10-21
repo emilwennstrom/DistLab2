@@ -1,5 +1,6 @@
 ﻿using DistLab2.Core;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace DistLab2.Persistence
 {
@@ -24,5 +25,16 @@ namespace DistLab2.Persistence
         public DateTime EndDate { get; set; }
         public List<BidDb> Bids { get; set; } = new List<BidDb>();
 
+
+        public override string? ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine("Id: " + Id)
+                .AppendLine("Name " + Name);
+
+            return stringBuilder.ToString();
+
+        }
     }
 }

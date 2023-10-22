@@ -4,13 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1><u>Ongoing auctions</u></h1>
 
-<p>
-    @Html.ActionLink("Sort", "Sort")
-</p>
-<p>@Html.ActionLink("Create", "Create")</p>
-<p>@Html.ActionLink("Show My Auctions", "IndexShowOnlyUsersAuctions")</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -65,3 +61,6 @@
 }
     </tbody>
 </table>
+
+
+<p>@Html.ActionLink("Create auction", "Create")</p>

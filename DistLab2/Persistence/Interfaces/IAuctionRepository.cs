@@ -5,8 +5,9 @@ namespace DistLab2.Persistence.Interfaces
 {
     public interface IAuctionRepository : IRepository<AuctionDb>
     {
-        public IEnumerable<AuctionDb> GetMostExpensive(int count);
+        IEnumerable<AuctionDb> GetWonAuctionsFromId(List<int> ids);
 
-        //public IEnumerable<AuctionDb> GetOngoing();
+        IEnumerable<AuctionDb> GetOngoingAuctions();
+
     }
 }

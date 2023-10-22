@@ -28,6 +28,7 @@ namespace DistLab2
                 .AddEntityFrameworkStores<IdentityContext>();
 
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+            builder.Services.AddScoped<IBidRepository, BidRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

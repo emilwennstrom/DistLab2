@@ -3,29 +3,20 @@ using DistLab2.Core;
 using DistLab2.Persistence.DAO;
 using DistLab2.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging.Signing;
 
 namespace DistLab2.Persistence.Repositories
 {
     public class AuctionRepository : Repository<AuctionDb>, IAuctionRepository
     {
 
-        private List<Auction> auctions;
-        //private Mapper _mapper;
-     
+
         public AuctionRepository(AuctionDbContext context) : base(context)
         {
-            auctions = new List<Auction>();
-            //_mapper = mapper;
+            
         }
 
-        public IEnumerable<AuctionDb> GetMostExpensive(int count)
-        {
-            var auctionDbs = AuctionDbContext.AuctionDbs.OrderByDescending(c => c.StartingPrice).Take(count);
-
-
-           return auctionDbs;
-
-        }
+        
 
         public AuctionDbContext? AuctionDbContext 
         { 
@@ -33,6 +24,23 @@ namespace DistLab2.Persistence.Repositories
             {
                 return _context as AuctionDbContext;  
             }
+        }
+
+        public IEnumerable<AuctionDb> GetOngoingAuctions()
+        {
+            var items = AuctionDbContext.AuctionDbs.Where(p => p.EndDate > DateTime.Now)
+                .OrderBy(p => p.EndDate);
+
+            return items;
+            
+        }
+
+        public IEnumerable<AuctionDb> GetWonAuctionsFromId(List<int> ids)
+        {
+
+            var items = AuctionDbContext.AuctionDbs.Where(p => ids.Contains(p.Id)).Where(p => p.EndDate < DateTime.Now);
+
+            return items;
         }
     }
 }

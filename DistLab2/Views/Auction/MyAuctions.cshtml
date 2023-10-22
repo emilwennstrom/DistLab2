@@ -1,60 +1,127 @@
-﻿@model IEnumerable<DistLab2.ViewModels.AuctionViewModel>
+﻿@model DistLab2.ViewModels.MyAuctionsViewModel
 
 @{
     ViewData["Title"] = "MyAuctions";
 }
 
-<h1>MyAuctions</h1>
+<h1><u>My Auctions</u></h1>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartingPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartingPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-        </tr>
+@{
+
+    var ownedAuctions = Model.UserOwnedAuctions;
+    var wonAuctions = Model.UserWinnedAuctions;
+
+    if (ownedAuctions.Any())
+    {
+        <h2>Published auctions</h2>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Auction name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Ends
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ownedAuctions)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartingPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    else
+    {
+        <p>You have not published any auctions</p>
+
+    }
+    <p>@Html.ActionLink("Create auction", "Create")</p>
+    if (wonAuctions.Any())
+    {
+        <h2>Won auctions</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Auction name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Ended
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in wonAuctions)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartingPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>You have not won any auctions.</p>
+    }
 }
-    </tbody>
-</table>

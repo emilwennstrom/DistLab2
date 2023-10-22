@@ -1,6 +1,6 @@
 ﻿namespace DistLab2.Persistence.Services
 {
-    public class BidPersistance
+    public class BidPersistence
     {
     }
 }

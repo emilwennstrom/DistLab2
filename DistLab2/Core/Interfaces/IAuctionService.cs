@@ -15,5 +15,8 @@
         double GetHighestBid(int id);
         void AddBid(Bid bid);
         List<Auction> GetAuctionsWithUserBids(string username);
+
+        List<Auction> GetWonAuctions(string username);
+
     }
 }

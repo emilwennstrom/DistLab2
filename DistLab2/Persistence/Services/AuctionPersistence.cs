@@ -89,10 +89,7 @@ namespace DistLab2.Persistence.Services
 
         public List<Auction> GetOngoing()
         {
-            var ongoingAuctions = _unitOfWork.Auctions
-                .Find(p => p.EndDate > DateTime.Now)
-                .OrderBy(p => p.EndDate).ToList();
-
+            var ongoingAuctions = _unitOfWork.Auctions.GetOngoingAuctions().ToList();
 
             return ConvertAuctionDbToAuction(ongoingAuctions);
         }
@@ -140,20 +137,44 @@ namespace DistLab2.Persistence.Services
         // Hämtar alla auctions som en specifik användare lagt bud på.
         public List<Auction> GetAuctionsWithUserBids(string username)
         {
-            List<BidDb> bidDbs = _unitOfWork.Bids.Find(p => p.Username == username).ToList();
+            List<BidDb> bidDbs = GetUserBids(username);
             HashSet<AuctionDb> auctionDbs = new();  // HashSet för att undvika fallet om användare har lagt flera bud på samma auction, kanske inte behövs
             foreach (var bidDb in bidDbs) {
-                var item = _unitOfWork.Auctions.Find(p => p.Id == bidDb.AuctionId).Where(p => p.EndDate > DateTime.Now).First();
-                auctionDbs.Add(item);
+                var item = _unitOfWork.Auctions.Find(p => p.Id == bidDb.AuctionId).Where(p => p.EndDate > DateTime.Now).FirstOrDefault();
+                //Borde inte kunna bara null då alla bud har en auction
+                if (item != null)
+                {
+                    auctionDbs.Add(item);
+                }
             }
             return ConvertAuctionDbToAuction(auctionDbs.ToList());
         }
+
+
+        public List<Auction> GetWonAuctions(string username)
+        {
+            Debug.WriteLine(username);
+            var winningAuctionIds = _unitOfWork.Bids.FindLeadingAuctionIds(username).ToList();
+            List<AuctionDb> auctionDbs = new();
+            if (winningAuctionIds.Any())
+            {
+                auctionDbs = _unitOfWork.Auctions.GetWonAuctionsFromId(winningAuctionIds).ToList();
+            }
+            return ConvertAuctionDbToAuction(auctionDbs);
+        }
+
 
         public void AddBid(Bid bid)
         {
             BidDb bidDb = _mapper.Map<BidDb>(bid);
             _unitOfWork.Bids.Add(bidDb);
             _unitOfWork.Complete();
+        }
+
+
+        private List<BidDb> GetUserBids(string username)
+        {
+            return _unitOfWork.Bids.Find(p => p.Username == username).ToList();
         }
 
     }

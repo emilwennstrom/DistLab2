@@ -43,11 +43,28 @@ namespace DistLab2.Controllers
             {
                 List<Auction> auctions = AuctionService.GetAllByUsername(currentUser);
                 List<AuctionViewModel> auctionVm = new();
+
+                List<Auction> winned = AuctionService.GetWonAuctions(currentUser);
+
+                List<AuctionViewModel> winnedVm = new();
+
                 foreach (Auction a in auctions)
                 {
                     auctionVm.Add(AuctionViewModel.FromAuction(a));
                 }
-                return View(auctionVm);
+
+                foreach (Auction b in winned)
+                {
+                    winnedVm.Add(AuctionViewModel.FromAuction(b));
+                }
+
+
+                MyAuctionsViewModel viewModel = new MyAuctionsViewModel();
+                viewModel.UserWinnedAuctions.AddRange(winnedVm);
+                viewModel.UserOwnedAuctions.AddRange(auctionVm);
+
+
+                return View(viewModel);
             }
             return View();
         }

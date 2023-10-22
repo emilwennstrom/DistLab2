@@ -76,7 +76,7 @@ namespace DistLab2.Persistence
                 Id = -4,
                 AuctionId = auctionDb2.Id,
                 BidAmount = 5800,
-                Username = "Albin",
+                Username = "algot@kth.se",
                 DateOfBid = DateTime.Now.AddMinutes(-20),
             };
 

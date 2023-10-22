@@ -66,5 +66,10 @@ namespace DistLab2.Core.Services
         {
             return _persistence.GetAuctionsWithUserBids(username);
         }
+
+        public List<Auction> GetWonAuctions(string username)
+        {
+            return _persistence.GetWonAuctions(username);
+        }
     }
 }

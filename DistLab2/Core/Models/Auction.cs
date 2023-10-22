@@ -16,7 +16,7 @@ namespace DistLab2.Core
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
         public List<Bid> Bids { get; set; }
-        
+
 
         public Auction(int id, string name, string description, string username, int startingPrice, DateTime creationDate, DateTime endDate, List<Bid> bids)
         {

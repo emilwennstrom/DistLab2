@@ -4,11 +4,8 @@
     ViewData["Title"] = "MyAuctionBids";
 }
 
-<h1>MyAuctionBids</h1>
+<h1>Your bids</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -61,10 +58,10 @@
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | *@
                     @Html.ActionLink("Details", "Details", new { id=item.Id, name = item.Name}) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+                @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+            </td> 
         </tr>
 }
     </tbody>

@@ -25,24 +25,6 @@ namespace DistLab2.Controllers
         }
 
 
-        //hämtar info om användare och dess auctions
-        [Authorize(Roles = "Admin")] //endast admin har access till dessa resurser
-        public ActionResult UserInfo()
-        {
-            if (ModelState.IsValid)
-            {
-                var users = _userManager.Users.ToList();
-                List<UserViewModel> userVm = new();
-                foreach (var u in users) 
-                {
-                    userVm.Add(UserViewModel.FromUser(u));
-                }
-                return View(userVm);
-            }
-            else return View();
-        }
-
-
         //visar alla auctions
         // GET: AuctionController
         public ActionResult Index()

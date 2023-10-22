@@ -15,6 +15,8 @@ namespace DistLab2.ViewModels
         [ScaffoldColumn(false)]
         public double CurrentHighestBid { get; set; }
 
+        public DateTime EndDate { get; set; }
+
         [Required]
         public double BidAmount { get; set; }
 

@@ -60,6 +60,10 @@ namespace DistLab2.Core.Services
         public void AddBid(Bid bid)
         {
             bid.DateOfBid = DateTime.Now;
+
+            
+
+
             _persistence.AddBid(bid);
         }
 
@@ -72,5 +76,11 @@ namespace DistLab2.Core.Services
         {
             return _persistence.GetWonAuctions(username);
         }
+
+        public bool CheckIfOngoing(DateTime endDate)
+        {
+            return (endDate > DateTime.Now);
+        }
+
     }
 }

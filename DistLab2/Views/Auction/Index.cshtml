@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<DistLab2.ViewModels.AllAuctionsViewModel>
 
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -44,7 +45,14 @@
             </td>
             <td>
                     @Html.ActionLink("Details", "Details", new { id=item.Id, name = item.Name}) |
-                    @Html.ActionLink("Add bid", "AddBid", new { id = item.Id, username = item.Username, auctionName = item.Name})
+                   @*  @Html.ActionLink("Add bid", "AddBid", new { id = item.Id, username = item.Username, auctionName = item.Name}) *@
+                    @using (Html.BeginForm("Addbid", "Auction", new { id = item.Id}, FormMethod.Post, true, null))
+                    {
+                        @Html.Hidden("username", item.Username)
+                        @Html.Hidden("auctionName", item.Name)
+                        @Html.Hidden("endDate", item.EndDate)
+                        <input type="submit" value="Add bid" class="submit-link-style"/>
+                    }
             </td>
         </tr>
 }

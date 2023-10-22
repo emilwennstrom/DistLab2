@@ -18,5 +18,7 @@
 
         List<Auction> GetWonAuctions(string username);
 
+        bool CheckIfOngoing(DateTime endDate);
+
     }
 }

@@ -185,12 +185,14 @@ namespace DistLab2.Controllers
             }
         }
 
-        
-        public ActionResult AddBid(int id, string username, string auctionName)
-        {
-            
-            string? currentUser = GetCurrentUser();
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBid(int id, string username, string auctionName, DateTime endDate)
+        {
+
+            string? currentUser = GetCurrentUser();
+            
             if (currentUser == null || currentUser == username)
             {
                 var referer = Request.Headers["Referer"].ToString(); // If no user or current user auction
@@ -201,6 +203,7 @@ namespace DistLab2.Controllers
             vm.CurrentHighestBid = AuctionService.GetHighestBid(id);
             vm.AuctionId = id;
             vm.AuctionName = auctionName;
+            vm.EndDate = endDate;
             
 
             return View(vm);
@@ -210,9 +213,9 @@ namespace DistLab2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateBid(CreateBidViewModel vm)
         {
-            if (User.Identity.Name != null)
+            if (GetCurrentUser() != null)
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && AuctionService.CheckIfOngoing(vm.EndDate))
                 {
                     Bid bid = new();
                     bid.BidAmount = vm.BidAmount;

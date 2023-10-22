@@ -35,7 +35,7 @@ namespace DistLab2.Controllers
             }else return View();
         }
 
-        //visar alla auctions som usern har själv lagt upp
+        //visar alla auctions som usern har själv lagt upp, samt vilka auktioner användaren har vunnit.
         // GET: AuctionController
         public ActionResult MyAuctions()
         {
@@ -43,25 +43,27 @@ namespace DistLab2.Controllers
             if (currentUser != null)
             {
                 List<Auction> auctions = AuctionService.GetAllByUsername(currentUser);
-                List<AuctionViewModel> auctionVm = new();
+                List<AllAuctionsViewModel> auctionVm = new();
 
-                List<Auction> winned = AuctionService.GetWonAuctions(currentUser);
+                List<Auction> wonAuctions = AuctionService.GetWonAuctions(currentUser);
 
-                List<AuctionViewModel> winnedVm = new();
+                List<AllAuctionsViewModel> wonAuctionsVm = new();
 
                 foreach (Auction a in auctions)
                 {
-                    auctionVm.Add(AuctionViewModel.FromAuction(a));
+                    double highestBid = AuctionService.GetHighestBid(a.Id);
+                    auctionVm.Add(AllAuctionsViewModel.FromAuction(a, highestBid));
                 }
 
-                foreach (Auction b in winned)
+                foreach (Auction b in wonAuctions)
                 {
-                    winnedVm.Add(AuctionViewModel.FromAuction(b));
+                    double highestBid = AuctionService.GetHighestBid(b.Id);
+                    wonAuctionsVm.Add(AllAuctionsViewModel.FromAuction(b, highestBid));
                 }
 
 
                 MyAuctionsViewModel viewModel = new MyAuctionsViewModel();
-                viewModel.UserWinnedAuctions.AddRange(winnedVm);
+                viewModel.UserWinnedAuctions.AddRange(wonAuctionsVm);
                 viewModel.UserOwnedAuctions.AddRange(auctionVm);
 
 

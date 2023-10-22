@@ -3,8 +3,8 @@
     public class MyAuctionsViewModel
     {
 
-        public List<AuctionViewModel> UserOwnedAuctions { get; set; }  = new List<AuctionViewModel>();
-        public List<AuctionViewModel> UserWinnedAuctions { get; set; } = new List<AuctionViewModel>();
+        public List<AllAuctionsViewModel> UserOwnedAuctions { get; set; }  = new List<AllAuctionsViewModel>();
+        public List<AllAuctionsViewModel> UserWinnedAuctions { get; set; } = new List<AllAuctionsViewModel>();
 
 
     }

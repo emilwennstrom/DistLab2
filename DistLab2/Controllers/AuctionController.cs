@@ -9,6 +9,7 @@ using System.Diagnostics;
 namespace DistLab2.Controllers
 {
     [Authorize]
+    //[Authorize(Roles = "Admin")] //endast admin har access till dessa resurser
     public class AuctionController : Controller
     {
         private readonly IAuctionService AuctionService;

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using DistLab2.Data;
 using DistLab2.Areas.Identity.Data;
 using DistLab2.Persistence.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DistLab2
 {
@@ -23,7 +25,9 @@ namespace DistLab2
             builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDbConnection")));
 
             builder.Services.AddDefaultIdentity<DistUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()  // för admin
                 .AddEntityFrameworkStores<IdentityContext>();
+
 
             builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
             builder.Services.AddScoped<IBidRepository, BidRepository>();
@@ -47,13 +51,22 @@ namespace DistLab2
                 app.UseHsts();
             }
 
+            // Ensure Admin role
+            using (var scope = app.Services.CreateScope())
+            {
+                EnsureAdminRoleForExistingUser(scope.ServiceProvider).Wait();
+                //EnsureAdminRole(scope.ServiceProvider).Wait();
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-                        app.UseAuthentication();;
+            app.UseAuthentication();;
 
             app.UseAuthorization();
+
+           
 
             app.MapControllerRoute(
                 name: "default",
@@ -61,5 +74,54 @@ namespace DistLab2
             app.MapRazorPages();
             app.Run();
         }
+
+        public static async Task EnsureAdminRole(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var adminUser = new IdentityUser
+            {
+                UserName = "admin@example.com",
+                Email = "admin@example.com",
+            };
+
+            var result = await userManager.CreateAsync(adminUser, "YourStrongPasswordHere!");
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(adminUser, "Administratör");
+            }
+
+        }
+
+        public static async Task EnsureAdminRoleForExistingUser(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<DistUser>>();
+
+            // Säkerställ att "Admin"-rollen existerar
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            // Hitta en befintlig användare
+            var existingUser = await userManager.FindByNameAsync("agge@hotmail.com");
+            if (existingUser != null)
+            {
+                // Lägg till användaren till "Admin"-rollen
+                if (!await userManager.IsInRoleAsync(existingUser, "Admin"))
+                {
+                    await userManager.AddToRoleAsync(existingUser, "Admin");
+                }
+            }
+        }
+
+
     }
 }

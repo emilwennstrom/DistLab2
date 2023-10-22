@@ -81,11 +81,12 @@ namespace DistLab2.Controllers
             Debug.WriteLine(userBiddedAuctions.Count);
 
 
-            List<AuctionViewModel> auctionViews = new();
+            List<AllAuctionsViewModel> auctionViews = new();
 
             foreach (Auction auction in userBiddedAuctions)
             {
-                AuctionViewModel auctionViewModel = AuctionViewModel.FromAuction(auction);
+                double highestBid = AuctionService.GetHighestBid(auction.Id);
+                AllAuctionsViewModel auctionViewModel = AllAuctionsViewModel.FromAuction(auction, highestBid);
                 auctionViews.Add(auctionViewModel);
             }
             return View(auctionViews);

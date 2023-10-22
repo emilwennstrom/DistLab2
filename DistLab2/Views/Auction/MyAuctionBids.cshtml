@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DistLab2.ViewModels.AuctionViewModel>
+﻿@model IEnumerable<DistLab2.ViewModels.AllAuctionsViewModel>
 
 @{
     ViewData["Title"] = "MyAuctionBids";
@@ -17,10 +17,7 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartingPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
+                @Html.DisplayNameFor(model => model.highestBid)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
@@ -42,10 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
+                @Html.DisplayFor(modelItem => item.highestBid)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)

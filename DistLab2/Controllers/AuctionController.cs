@@ -25,10 +25,11 @@ namespace DistLab2.Controllers
             if (ModelState.IsValid)
             {
                 List<Auction> auctions = AuctionService.GetOngoing();
-                List<AuctionViewModel> auctionVm = new();
+                List<AllAuctionsViewModel> auctionVm = new();
                 foreach (Auction a in auctions)
                 {
-                    auctionVm.Add(AuctionViewModel.FromAuction(a));
+                    double highestBid= AuctionService.GetHighestBid(a.Id);
+                    auctionVm.Add(AllAuctionsViewModel.FromAuction(a,highestBid));
                 }
                 return View(auctionVm);
             }else return View();

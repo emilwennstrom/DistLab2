@@ -3,6 +3,7 @@ using DistLab2.Core.Interfaces;
 using DistLab2.Persistence;
 using DistLab2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,9 +14,12 @@ namespace DistLab2.Controllers
     public class AuctionController : Controller
     {
         private readonly IAuctionService AuctionService;
-        public AuctionController(IAuctionService service) 
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public AuctionController(IAuctionService service, UserManager<IdentityUser> userManager) 
         {
             AuctionService = service;
+            _userManager = userManager;
 
         }
 

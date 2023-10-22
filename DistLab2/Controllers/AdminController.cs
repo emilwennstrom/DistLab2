@@ -39,8 +39,11 @@ namespace DistLab2.Controllers
             else return View();
         }
 
+
+        //Get
+        //Ej implemenmterad
         //hämtar info en specific användares auctions
-        public ActionResult ShowAuctions()
+        public ActionResult ShowAuctions(string userId)
         {
             if (ModelState.IsValid)
             {
@@ -55,22 +58,34 @@ namespace DistLab2.Controllers
             else return View();
         }
 
-        //deletes a user
-        public ActionResult DeleteUser()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(string id)
         {
-            if (ModelState.IsValid)
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
-                var users = _userManager.Users.ToList();
-                List<UserViewModel> userVm = new();
-                foreach (var u in users)
-                {
-                    userVm.Add(UserViewModel.FromUser(u));
-                }
-                return View(userVm);
+                // User not found
+                return NotFound();
             }
-            else return View();
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+
+                return RedirectToAction("UserInfo"); // Assuming you have a ListUsers action to show all users
+            }
+
+            // Handle any errors here by adding them to the ModelState and returning the view
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View("UserInfo"); // Return to the list with error messages
         }
-        
+
+
 
 
         // GET: AdminController

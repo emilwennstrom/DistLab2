@@ -96,9 +96,7 @@ namespace DistLab2.Persistence.Services
 
         public List<Bid> GetBids(int auctionId)
         {
-            List<BidDb> bidDbs = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId)
-                .OrderByDescending(p => p.BidAmount)
-                .ToList();
+            List<BidDb> bidDbs = _unitOfWork.Bids.GetOrderedBids(auctionId).ToList();
             List<Bid> bids = new();
 
             foreach (var bidDb in bidDbs) 
@@ -116,12 +114,12 @@ namespace DistLab2.Persistence.Services
 
             //double highest = _unitOfWork.Bids.Find(p => p.AuctionId == (auctionId)).Max(p => p.BidAmount); Exception när inga bud är lagda
             var bids = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId);
-            if (!bids.Any())
+            if (!bids.Any()) // Om inga bud finns, sätt current till startingprice 
             {
-                return _unitOfWork.Auctions.Get(auctionId).StartingPrice;   // Om inga bud finns, sätt current till startingprice 
+                return _unitOfWork.Auctions.Get(auctionId).StartingPrice;   
             }
 
-            double highestBid = -1;
+            double highestBid = 0;
             foreach(var bidDb in bids)
             {
                 if(bidDb.BidAmount > highestBid)
@@ -137,28 +135,23 @@ namespace DistLab2.Persistence.Services
         // Hämtar alla auctions som en specifik användare lagt bud på.
         public List<Auction> GetAuctionsWithUserBids(string username)
         {
-            List<BidDb> bidDbs = GetUserBids(username);
-            HashSet<AuctionDb> auctionDbs = new();  // HashSet för att undvika fallet om användare har lagt flera bud på samma auction, kanske inte behövs
-            foreach (var bidDb in bidDbs) {
-                var item = _unitOfWork.Auctions.Find(p => p.Id == bidDb.AuctionId).Where(p => p.EndDate > DateTime.Now).FirstOrDefault();
-                //Borde inte kunna bara null då alla bud har en auction
-                if (item != null)
-                {
-                    auctionDbs.Add(item);
-                }
+            var ids = _unitOfWork.Bids.GetAuctionIdsFromUsername(username).ToList();
+            List<AuctionDb> auctionDbs = new();
+            if (ids.Any())
+            {
+                auctionDbs = _unitOfWork.Auctions.GetOngoingAuctionsFromIds(ids).ToList();
             }
-            return ConvertAuctionDbToAuction(auctionDbs.ToList());
+            return ConvertAuctionDbToAuction(auctionDbs);
         }
 
 
         public List<Auction> GetWonAuctions(string username)
         {
-            Debug.WriteLine(username);
             var winningAuctionIds = _unitOfWork.Bids.FindLeadingAuctionIds(username).ToList();
             List<AuctionDb> auctionDbs = new();
             if (winningAuctionIds.Any())
             {
-                auctionDbs = _unitOfWork.Auctions.GetWonAuctionsFromId(winningAuctionIds).ToList();
+                auctionDbs = _unitOfWork.Auctions.GetWonAuctionsFromIds(winningAuctionIds).ToList();
             }
             return ConvertAuctionDbToAuction(auctionDbs);
         }
@@ -170,12 +163,6 @@ namespace DistLab2.Persistence.Services
             _unitOfWork.Bids.Add(bidDb);
             _unitOfWork.Complete();
         }
-
-
-        private List<BidDb> GetUserBids(string username)
-        {
-            return _unitOfWork.Bids.Find(p => p.Username == username).ToList();
-        }
-
+   
     }
 }

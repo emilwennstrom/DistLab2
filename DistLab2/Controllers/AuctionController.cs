@@ -118,7 +118,7 @@ namespace DistLab2.Controllers
         {
             if (ModelState.IsValid)
             {
-                Auction auction = new Auction(vm.Name, vm.Description, vm.StartingPrice);
+                Auction auction = new();
                 auction.Username = GetCurrentUser();
                 auction.Name = vm.Name;
                 auction.Description = vm.Description;
@@ -145,7 +145,8 @@ namespace DistLab2.Controllers
         {
             //if (!AuctionService.userIsOwnerOfAuction(User.Identity.Name, id)) return RedirectToAction("Index");
            //TODO: man borde validera här också. Den ovan funkar inte av någon anledning
-            //måste man ha en IFormCollection????
+            //måste man ha en IFormCollection
+            
             try
             {
                 //TODO: kollar inte om ModelState är valid. Det funkade inte för mig när jag testade med det.
@@ -194,7 +195,6 @@ namespace DistLab2.Controllers
 
             CreateBidViewModel vm = new CreateBidViewModel();
             vm.CurrentHighestBid = AuctionService.GetHighestBid(id);
-            Debug.WriteLine(vm.CurrentHighestBid);
             vm.AuctionId = id;
             vm.AuctionName = auctionName;
             
@@ -210,8 +210,10 @@ namespace DistLab2.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Bid bid = new Bid(DateTime.Now, vm.BidAmount, User.Identity.Name, vm.AuctionId);
-                    Debug.WriteLine("Valid");
+                    Bid bid = new();
+                    bid.BidAmount = vm.BidAmount;
+                    bid.Username = GetCurrentUser();
+                    bid.AuctionId = vm.AuctionId;
                     AuctionService.AddBid(bid);
                     return RedirectToAction("Index");
                 }

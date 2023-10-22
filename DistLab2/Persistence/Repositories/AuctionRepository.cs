@@ -35,7 +35,14 @@ namespace DistLab2.Persistence.Repositories
             
         }
 
-        public IEnumerable<AuctionDb> GetWonAuctionsFromId(List<int> ids)
+        public IEnumerable<AuctionDb> GetOngoingAuctionsFromIds(List<int> ids)
+        {
+            ids = ids.Distinct().ToList(); // så endast en auktion hämtas per id
+            var items = AuctionDbContext.AuctionDbs.Where(p => ids.Contains(p.Id)).Where(p => p.EndDate > DateTime.Now);
+            return items;
+        }
+
+        public IEnumerable<AuctionDb> GetWonAuctionsFromIds(List<int> ids)
         {
 
             var items = AuctionDbContext.AuctionDbs.Where(p => ids.Contains(p.Id)).Where(p => p.EndDate < DateTime.Now);

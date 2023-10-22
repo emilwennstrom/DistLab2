@@ -8,5 +8,9 @@ namespace DistLab2.Persistence.Interfaces
 
         IEnumerable<int> FindLeadingAuctionIds(string username);
 
+        IEnumerable<BidDb> GetOrderedBids(int auctionId);
+
+        IEnumerable<int> GetAuctionIdsFromUsername(string username);
+
     }
 }

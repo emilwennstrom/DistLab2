@@ -59,6 +59,7 @@ namespace DistLab2.Core.Services
 
         public void AddBid(Bid bid)
         {
+            bid.DateOfBid = DateTime.Now;
             _persistence.AddBid(bid);
         }
 

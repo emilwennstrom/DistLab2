@@ -28,7 +28,18 @@ namespace DistLab2.Persistence.Repositories
             return auctionIds;
         }
 
+        public IEnumerable<BidDb> GetOrderedBids(int auctionId)
+        {
+            var items = AuctionDbContext.BidDbs.Where(p => p.AuctionId == auctionId)
+                .OrderByDescending(p => p.BidAmount);
+            return items;
+        }
 
+        public IEnumerable<int> GetAuctionIdsFromUsername(string username)
+        {
+            var items = AuctionDbContext.BidDbs.Where(p => p.Username == username).Select(p => p.AuctionId);
+            return items;
+        }
 
         public AuctionDbContext? AuctionDbContext
         {

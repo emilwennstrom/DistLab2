@@ -1,4 +1,5 @@
 ﻿using DistLab2.Areas.Identity.Data;
+using DistLab2.Core;
 using DistLab2.Core.Interfaces;
 using DistLab2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Diagnostics;
 
 namespace DistLab2.Controllers
 {
@@ -40,22 +42,23 @@ namespace DistLab2.Controllers
         }
 
 
-        //Get
-        //Ej implemenmterad
-        //hämtar info en specific användares auctions
-        public ActionResult ShowAuctions(string userId)
+        public ActionResult ShowAuctions(string UserName)
         {
-            if (ModelState.IsValid)
-            {
-                var users = _userManager.Users.ToList();
-                List<UserViewModel> userVm = new();
-                foreach (var u in users)
+            Debug.WriteLine("username: " + UserName);
+          
+                List<Auction> auctions = AuctionService.GetAllByUsername(UserName);
+                if (auctions != null)
                 {
-                    userVm.Add(UserViewModel.FromUser(u));
+                    List<AllAuctionsViewModel> auctionVm = new();
+                    foreach (Auction a in auctions)
+                    {
+                        double highestBid = AuctionService.GetHighestBid(a.Id);
+                        auctionVm.Add(AllAuctionsViewModel.FromAuction(a, highestBid));
+                    }
+
+                    return View(auctionVm);
                 }
-                return View(userVm);
-            }
-            else return View();
+            return View();
         }
 
 

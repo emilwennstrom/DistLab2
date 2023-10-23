@@ -49,11 +49,10 @@ namespace DistLab2.Controllers
             List<Auction> auctions = AuctionService.GetAllByUsername(UserName);
             if (auctions != null)
             {
-                List<AllAuctionsViewModel> auctionVm = new();
+                List<AuctionViewModel> auctionVm = new();
                 foreach (Auction a in auctions)
                 {
-                    double highestBid = AuctionService.GetHighestBid(a.Id);
-                    auctionVm.Add(AllAuctionsViewModel.FromAuction(a, highestBid));
+                    auctionVm.Add(AuctionViewModel.FromAuction(a));
                 }
                    return View(auctionVm);
             }

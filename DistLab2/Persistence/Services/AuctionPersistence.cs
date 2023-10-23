@@ -42,18 +42,7 @@ namespace DistLab2.Persistence.Services
             return auctionDb;
         }
 
-        public List<Auction> GetAll()
-        {
-            List<AuctionDb> auctionDbList = _unitOfWork.Auctions.GetAll().ToList();
-
-            foreach (AuctionDb adb in auctionDbList)
-            {
-                Debug.WriteLine(adb.ToString());
-            }
-            return ConvertAuctionDbToAuction(auctionDbList);
-        }
-
-
+      
         public List<Auction> GetAllByUsername(string username)
         {
             List<AuctionDb> dbList = _unitOfWork.Auctions.Find(p => p.Username.Equals(username)).ToList();

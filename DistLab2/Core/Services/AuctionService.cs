@@ -14,11 +14,6 @@ namespace DistLab2.Core.Services
             return _persistence.GetAllByUsername(username);
         }
 
-        public List<Auction> GetAll()
-        {
-            return _persistence.GetAll();
-        }
-
         public void Add(Auction auction)
         {
             //asume no bids on new auction.

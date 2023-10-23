@@ -2,7 +2,6 @@
 {
     public interface IAuctionPersistence
     {
-        List<Auction> GetAll();
         List<Auction> GetAllByUsername(string username);
         void EditDescription(string description, int id);
         bool UserIsOwner(string username, int auctionId);

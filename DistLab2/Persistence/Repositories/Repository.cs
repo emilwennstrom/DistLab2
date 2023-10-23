@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace DistLab2.Persistence.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public abstract class Repository<T> : IRepository<T> where T : class
     {
         protected readonly DbContext _context;
 

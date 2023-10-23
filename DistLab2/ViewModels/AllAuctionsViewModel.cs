@@ -12,7 +12,6 @@ namespace DistLab2.ViewModels
         public double highestBid { get;set; }
         public DateTime EndDate { get; set; }
         public string Username { get; set; }
-        public List<BidViewModel> Bids { get; set; } = new();
 
         public static AllAuctionsViewModel FromAuction(Auction auction, double highestBid)
         {
@@ -25,15 +24,7 @@ namespace DistLab2.ViewModels
                 EndDate = auction.EndDate,
                 Username = auction.Username,
             };
-            if (auction.Bids != null)
-            {
-
-                foreach (var bid in auction.Bids) // Ska en lista skapas när man skapar en auction från 
-                {                               // Eller ska den skapas när första budet läggs till
-                    vm.Bids.Add(BidViewModel.FromBid(bid));
-                    Debug.WriteLine(bid.Username);
-                }
-            }
+           
             return vm;
         }
     }

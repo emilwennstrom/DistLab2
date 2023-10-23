@@ -4,14 +4,16 @@
     ViewData["Title"] = "MyAuctions";
 }
 
-<h1><u>My Auctions</u></h1>
+<h1><u>Your auctions</u></h1>
 <br />
 
 @{
 
     var ownedAuctions = Model.UserOwnedAuctions;
     var wonAuctions = Model.UserWinnedAuctions;
-
+    
+    
+    
     if (ownedAuctions.Any())
     {
         <h2>Published auctions</h2>
@@ -28,9 +30,6 @@
                     </th>
                     <th>
                         Price
-                    </th>
-                    <th>
-                        Created
                     </th>
                     <th>
                         Ends
@@ -83,9 +82,6 @@
                     </th>
                     <th>
                         Price
-                    </th>
-                    <th>
-                        Created
                     </th>
                     <th>
                         Ended

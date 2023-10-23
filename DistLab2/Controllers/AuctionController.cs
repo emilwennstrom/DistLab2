@@ -15,10 +15,12 @@ namespace DistLab2.Controllers
     public class AuctionController : Controller
     {
         private readonly IAuctionService AuctionService;
+        private readonly UserManager<DistUser> _userManager;
 
-        public AuctionController(IAuctionService service) 
+        public AuctionController(IAuctionService service,UserManager<DistUser> userManager) 
         {
             AuctionService = service;
+            _userManager = userManager;
 
         }
 
@@ -33,11 +35,18 @@ namespace DistLab2.Controllers
                 List<AllAuctionsViewModel> auctionVm = new();
                 foreach (Auction a in auctions)
                 {
-                    double highestBid= AuctionService.GetHighestBid(a.Id);
-                    auctionVm.Add(AllAuctionsViewModel.FromAuction(a,highestBid));
+                    // Check if the user related to the auction exists
+                    var user = _userManager.FindByNameAsync(a.Username).Result;
+
+                    if (user != null)
+                    {
+                        double highestBid = AuctionService.GetHighestBid(a.Id);
+                        auctionVm.Add(AllAuctionsViewModel.FromAuction(a, highestBid));
+                    }
                 }
                 return View(auctionVm);
-            }else return View();
+            }
+            else return View();
         }
 
         //visar alla auctions som usern har själv lagt upp, samt vilka auktioner användaren har vunnit.

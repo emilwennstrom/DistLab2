@@ -4,7 +4,7 @@
     ViewData["Title"] = "MyAuctions";
 }
 
-<h1><u>Your auctions</u></h1>
+<h1>Your auctions</h1>
 <br />
 
 @{
@@ -54,7 +54,7 @@
                             @Html.DisplayFor(modelItem => item.EndDate)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+                            @Html.ActionLink("Edit", "Edit", "Auction", new { id=item.Id }, new {@class = "btn btn-primary"})
                         </td>
                     </tr>
                 }
@@ -67,7 +67,7 @@
         <p>You have not published any auctions</p>
 
     }
-    <p>@Html.ActionLink("Create auction", "Create")</p>
+    <p>@Html.ActionLink("Create auction", "Create", "Auction", null, new {@class = "btn btn-primary"})</p>
     if (wonAuctions.Any())
     {
         <h2>Won auctions</h2>

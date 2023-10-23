@@ -119,6 +119,7 @@ namespace DistLab2.Controllers
                 return View(vm);
 
             }
+            TempData["NoBids"] = "No bids to display!";
             return Redirect(Request.Headers["Referer"].ToString()); // Returns to previous page if there are no bids
         }
 
@@ -209,6 +210,7 @@ namespace DistLab2.Controllers
             if (currentUser == null || currentUser == username)
             {
                 var referer = Request.Headers["Referer"].ToString(); // If no user or current user auction
+                TempData["OwnAuction"] = "You can not bid on your own auction!";
                 return Redirect(referer);
             }
 

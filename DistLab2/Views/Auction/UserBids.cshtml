@@ -49,7 +49,7 @@
             </td>
             <td>
                 @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | *@
-                    @Html.ActionLink("Details", "Details", new { id=item.Id, name = item.Name}) @*  | *@
+                    @Html.ActionLink("Show bids", "Details","Auction", new { id=item.Id, name = item.Name}, new {@class = "btn btn-primary"}) @*  | *@
                 @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
             </td> 
         </tr>

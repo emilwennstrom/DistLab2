@@ -4,9 +4,9 @@
     ViewData["Title"] = "AddBid";
 }
 
-<h1>New bid</h1>
+<h1>Enter a bid</h1>
 
-<h4>@Html.DisplayFor(name => Model.AuctionName)</h4>
+<h4>Auction name: @Html.DisplayFor(name => Model.AuctionName)</h4>
 <h3>Current price: @Html.DisplayFor(bid => Model.CurrentHighestBid)</h3>
 <hr />
 <div class="row">
@@ -19,6 +19,7 @@
                 <span asp-validation-for="BidAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <br />
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <input type="hidden" asp-for="AuctionName" />
                 <input type="hidden" asp-for="AuctionId"/>
@@ -29,9 +30,9 @@
     </div>
 </div>
 
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary">Back to auctions</a>
 </div>
 
 @section Scripts {

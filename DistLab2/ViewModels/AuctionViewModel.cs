@@ -1,7 +1,5 @@
-﻿using Azure.Identity;
-using DistLab2.Core;
+﻿using DistLab2.Core;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 
 namespace DistLab2.ViewModels
 {
@@ -30,12 +28,12 @@ namespace DistLab2.ViewModels
                 EndDate = auction.EndDate,
                 Username = auction.Username,
             };
-           
+
             return vm;
         }
 
-      
+
 
     }
-   
+
 }

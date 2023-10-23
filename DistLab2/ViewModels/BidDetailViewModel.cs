@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using DistLab2.Core;
+﻿using DistLab2.Core;
 
 namespace DistLab2.ViewModels
 {
@@ -8,7 +7,7 @@ namespace DistLab2.ViewModels
 
 
         public string AuctionName { get; set; }
-        public List<BidViewModel> BidsVm {  get; set; } = new List<BidViewModel>();
+        public List<BidViewModel> BidsVm { get; set; } = new List<BidViewModel>();
 
 
 
@@ -25,7 +24,7 @@ namespace DistLab2.ViewModels
 
             return vm;
         }
-       
+
 
     }
 }

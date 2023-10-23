@@ -6,7 +6,8 @@ namespace DistLab2.Mappings
 {
     public class AuctionProfile : Profile
     {
-        public AuctionProfile() {
+        public AuctionProfile()
+        {
 
             //default mapping when property names are the same
             CreateMap<Auction, AuctionDb>()

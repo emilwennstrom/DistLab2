@@ -1,7 +1,6 @@
 ﻿using DistLab2.Areas.Identity.Data;
 using DistLab2.Core;
 using DistLab2.Core.Interfaces;
-using DistLab2.Persistence;
 using DistLab2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,7 @@ namespace DistLab2.Controllers
         private readonly IAuctionService AuctionService;
         private readonly UserManager<DistUser> _userManager;
 
-        public AuctionController(IAuctionService service,UserManager<DistUser> userManager) 
+        public AuctionController(IAuctionService service, UserManager<DistUser> userManager)
         {
             AuctionService = service;
             _userManager = userManager;
@@ -143,13 +142,14 @@ namespace DistLab2.Controllers
                 auction.StartingPrice = vm.StartingPrice;
                 AuctionService.Add(auction);
                 return RedirectToAction("Index");
-            } else return View();
+            }
+            else return View();
         }
 
         // GET: AuctionController/Edit/5
         public ActionResult Edit(int id)
         {
-            if(AuctionService.UserIsOwner(GetCurrentUser(), id))
+            if (AuctionService.UserIsOwner(GetCurrentUser(), id))
             {
                 return View();
             }
@@ -162,9 +162,9 @@ namespace DistLab2.Controllers
         public ActionResult Edit(int id, IFormCollection collection, AuctionViewModel auction)
         {
             //if (!AuctionService.userIsOwnerOfAuction(User.Identity.Name, id)) return RedirectToAction("Index");
-           //TODO: man borde validera här också. Den ovan funkar inte av någon anledning
+            //TODO: man borde validera här också. Den ovan funkar inte av någon anledning
             //måste man ha en IFormCollection
-            
+
             try
             {
                 //TODO: kollar inte om ModelState är valid. Det funkade inte för mig när jag testade med det.
@@ -206,7 +206,7 @@ namespace DistLab2.Controllers
         {
 
             string? currentUser = GetCurrentUser();
-            
+
             if (currentUser == null || currentUser == username)
             {
                 var referer = Request.Headers["Referer"].ToString(); // If no user or current user auction
@@ -219,7 +219,7 @@ namespace DistLab2.Controllers
             vm.AuctionId = id;
             vm.AuctionName = auctionName;
             vm.EndDate = endDate;
-            
+
 
             return View(vm);
         }
@@ -245,10 +245,10 @@ namespace DistLab2.Controllers
                 }
             }
 
-            return RedirectToAction("Index");   
+            return RedirectToAction("Index");
         }
 
-        
+
 
         private string GetCurrentUser()
         {
@@ -256,7 +256,7 @@ namespace DistLab2.Controllers
         }
 
 
-       
+
     }
 
 

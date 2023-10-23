@@ -1,5 +1,4 @@
-﻿using DistLab2.Core;
-using DistLab2.Persistence.DAO;
+﻿using DistLab2.Persistence.DAO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2.Persistence
@@ -27,11 +26,12 @@ namespace DistLab2.Persistence
                 EndDate = DateTime.Now.AddYears(1),
                 Bids = new List<BidDb>()
             };
-           
-            BidDb bid1 = new BidDb { 
-                Id = -1, 
-                AuctionId = auctionDb1.Id, 
-                BidAmount = 50, 
+
+            BidDb bid1 = new BidDb
+            {
+                Id = -1,
+                AuctionId = auctionDb1.Id,
+                BidAmount = 50,
                 Username = "Emil",
                 DateOfBid = DateTime.Now.AddMinutes(10),
             };

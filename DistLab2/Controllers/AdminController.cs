@@ -44,21 +44,20 @@ namespace DistLab2.Controllers
 
         public ActionResult ShowAuctions(string UserName)
         {
-            Debug.WriteLine("username: " + UserName);
-          
-                List<Auction> auctions = AuctionService.GetAllByUsername(UserName);
-                if (auctions != null)
+            //TODO: sätt ihop getAllByUsername med GetHighestBid metod i AuctionServices.
+            List<Auction> auctions = AuctionService.GetAllByUsername(UserName);
+            if (auctions != null)
+            {
+                List<AllAuctionsViewModel> auctionVm = new();
+                foreach (Auction a in auctions)
                 {
-                    List<AllAuctionsViewModel> auctionVm = new();
-                    foreach (Auction a in auctions)
-                    {
-                        double highestBid = AuctionService.GetHighestBid(a.Id);
-                        auctionVm.Add(AllAuctionsViewModel.FromAuction(a, highestBid));
-                    }
-
-                    return View(auctionVm);
+                    double highestBid = AuctionService.GetHighestBid(a.Id);
+                    auctionVm.Add(AllAuctionsViewModel.FromAuction(a, highestBid));
                 }
-            return View();
+                   return View(auctionVm);
+            }
+            return RedirectToAction("UserInfo");
+            //TODO: redirect när användare inte har auction
         }
 
 
@@ -97,11 +96,25 @@ namespace DistLab2.Controllers
             return View();
         }
 
+
         // GET: AdminController/Details/5
-        public ActionResult Details(int id)
+        //shows bids on auctions for specific user
+        public ActionResult Details(int id, string name)
         {
-            return View();
+            List<Bid> bids = AuctionService.GetBids(id);
+            Debug.WriteLine(bids.Count);
+            if (bids.Count > 0)
+            {
+                BidDetailViewModel vm = BidDetailViewModel.FromBid(bids, name);
+                return View(vm);
+
+            }
+            return Redirect(Request.Headers["Referer"].ToString()); // Returns to previous page if there are no bids
         }
+
+    
+
+
 
         // GET: AdminController/Create
         public ActionResult Create()

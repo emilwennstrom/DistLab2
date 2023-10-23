@@ -15,12 +15,10 @@ namespace DistLab2.Controllers
     public class AuctionController : Controller
     {
         private readonly IAuctionService AuctionService;
-        private readonly UserManager<DistUser> _userManager;
 
-        public AuctionController(IAuctionService service, UserManager<DistUser> userManager) 
+        public AuctionController(IAuctionService service) 
         {
             AuctionService = service;
-            _userManager = userManager;
 
         }
 

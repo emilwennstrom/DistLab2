@@ -173,8 +173,8 @@ namespace DistLab2.Controllers
             try
             {
                 AuctionService.DeleteAuction(Id);
-                return View();
-                //return RedirectToAction(nameof(Index));
+            
+                return RedirectToAction(nameof(UserInfo));
             }
             catch
             {

@@ -28,7 +28,7 @@ namespace DistLab2.Persistence.Repositories
 
         public IEnumerable<AuctionDb> GetOngoingAuctions()
         {
-            var items = AuctionDbContext.AuctionDbs.Where(p => p.EndDate > DateTime.Now)
+            var items = AuctionDbContext.AuctionDbs.Where(p => p.EndDate > DateTime.Now && !string.IsNullOrEmpty(p.Username))
                 .OrderBy(p => p.EndDate);
 
             return items;

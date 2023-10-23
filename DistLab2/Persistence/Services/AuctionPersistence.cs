@@ -163,6 +163,17 @@ namespace DistLab2.Persistence.Services
             _unitOfWork.Bids.Add(bidDb);
             _unitOfWork.Complete();
         }
-   
+
+        public void DeleteAuction(int id)
+        {
+            AuctionDb auctionDb = _unitOfWork.Auctions.Get(id);
+            
+            //automatic cascade delete of bidsDb related to Id of auction due to settings in EE databbase,
+            //List<BidDb> bidsDBs= (List<BidDb>)_unitOfWork.Bids.Find(b => b.Id == id);
+            //foreach(var bidDb in bidsDBs)
+            //{ _unitOfWork.Bids.Remove(bidDb); };
+            _unitOfWork.Auctions.Remove(auctionDb);
+            _unitOfWork.Complete();
+        }
     }
 }

@@ -82,5 +82,9 @@ namespace DistLab2.Core.Services
             return (endDate > DateTime.Now);
         }
 
+        public void DeleteAuction(int id)
+        {
+            _persistence.DeleteAuction(id);
+        }
     }
 }

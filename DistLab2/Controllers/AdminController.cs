@@ -1,6 +1,7 @@
 ﻿using DistLab2.Areas.Identity.Data;
 using DistLab2.Core;
 using DistLab2.Core.Interfaces;
+using DistLab2.Core.Services;
 using DistLab2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -167,6 +168,25 @@ namespace DistLab2.Controllers
         // POST: AdminController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult DeleteAuction(int Id, IFormCollection collection)
+        {
+            try
+            {
+                AuctionService.DeleteAuction(Id);
+                return View();
+                //return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        /* 
+        // POST: AdminController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
@@ -178,5 +198,6 @@ namespace DistLab2.Controllers
                 return View();
             }
         }
+        */
     }
 }

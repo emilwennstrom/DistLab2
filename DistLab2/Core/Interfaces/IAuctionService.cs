@@ -17,6 +17,7 @@
         List<Auction> GetAuctionsWithUserBids(string username);
 
         List<Auction> GetWonAuctions(string username);
+        void DeleteAuction(int id);
 
         bool CheckIfOngoing(DateTime endDate);
 

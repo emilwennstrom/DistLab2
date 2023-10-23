@@ -51,7 +51,7 @@ namespace DistLab2.Controllers
 
         //visar alla auctions som usern har själv lagt upp, samt vilka auktioner användaren har vunnit.
         // GET: AuctionController
-        public ActionResult MyAuctions()
+        public ActionResult UserAuctions()
         {
             string currentUser = GetCurrentUser(); //name måste vara unikt. Dubbelkolla att det är så.
             if (currentUser != null)
@@ -87,7 +87,7 @@ namespace DistLab2.Controllers
         }
 
         //Hämtar Auctions som en användare lagt bud på
-        public ActionResult MyAuctionBids()
+        public ActionResult UserBids()
         {
 
             string currentUser = GetCurrentUser();

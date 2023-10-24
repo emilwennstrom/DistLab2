@@ -1,5 +1,4 @@
-﻿using DistLab2.Core;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DistLab2.ViewModels
 {
@@ -15,11 +14,11 @@ namespace DistLab2.ViewModels
         //TODO: lägg till user
         [Required]
         public int StartingPrice { get; set; }
-        
-        
+
+
         //[Required]
         //public DateTime DateTime {  get; set; } 
-       
+
 
 
 

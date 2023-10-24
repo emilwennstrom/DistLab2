@@ -1,13 +1,10 @@
 ﻿using DistLab2.Areas.Identity.Data;
 using DistLab2.Core;
 using DistLab2.Core.Interfaces;
-using DistLab2.Core.Services;
 using DistLab2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using System.Diagnostics;
 
 namespace DistLab2.Controllers
@@ -54,7 +51,7 @@ namespace DistLab2.Controllers
                 {
                     auctionVm.Add(AuctionViewModel.FromAuction(a));
                 }
-                   return View(auctionVm);
+                return View(auctionVm);
             }
             return RedirectToAction("UserInfo");
             //TODO: redirect när användare inte har auction
@@ -112,7 +109,7 @@ namespace DistLab2.Controllers
             return Redirect(Request.Headers["Referer"].ToString()); // Returns to previous page if there are no bids
         }
 
-    
+
 
 
 
@@ -172,7 +169,7 @@ namespace DistLab2.Controllers
             try
             {
                 AuctionService.DeleteAuction(Id);
-            
+
                 return RedirectToAction(nameof(UserInfo));
             }
             catch

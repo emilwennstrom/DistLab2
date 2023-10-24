@@ -1,14 +1,13 @@
+using DistLab2.Areas.Identity.Data;
 using DistLab2.Core.Interfaces;
 using DistLab2.Core.Services;
+using DistLab2.Data;
 using DistLab2.Persistence;
 using DistLab2.Persistence.Interfaces;
 using DistLab2.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
-using DistLab2.Data;
-using DistLab2.Areas.Identity.Data;
 using DistLab2.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2
 {
@@ -20,7 +19,7 @@ namespace DistLab2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            
+
             builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
             builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDbConnection")));
 
@@ -62,11 +61,11 @@ namespace DistLab2
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();;
+            app.UseAuthentication(); ;
 
             app.UseAuthorization();
 
-           
+
 
             app.MapControllerRoute(
                 name: "default",

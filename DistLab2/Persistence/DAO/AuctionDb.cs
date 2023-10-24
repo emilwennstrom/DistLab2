@@ -1,5 +1,4 @@
-﻿using DistLab2.Core;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DistLab2.Persistence.DAO

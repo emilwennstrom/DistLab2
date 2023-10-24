@@ -1,8 +1,5 @@
-﻿using DistLab2.Core;
-using DistLab2.Persistence.DAO;
+﻿using DistLab2.Persistence.DAO;
 using DistLab2.Persistence.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace DistLab2.Persistence.Repositories
 {
@@ -10,7 +7,7 @@ namespace DistLab2.Persistence.Repositories
     {
 
 
-        
+
 
         public BidRepository(AuctionDbContext context) : base(context)
         {

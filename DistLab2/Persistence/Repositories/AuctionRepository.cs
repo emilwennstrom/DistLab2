@@ -1,9 +1,5 @@
-﻿using AutoMapper;
-using DistLab2.Core;
-using DistLab2.Persistence.DAO;
+﻿using DistLab2.Persistence.DAO;
 using DistLab2.Persistence.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Packaging.Signing;
 
 namespace DistLab2.Persistence.Repositories
 {
@@ -13,16 +9,16 @@ namespace DistLab2.Persistence.Repositories
 
         public AuctionRepository(AuctionDbContext context) : base(context)
         {
-            
+
         }
 
-        
 
-        public AuctionDbContext? AuctionDbContext 
-        { 
-            get 
+
+        public AuctionDbContext? AuctionDbContext
+        {
+            get
             {
-                return _context as AuctionDbContext;  
+                return _context as AuctionDbContext;
             }
         }
 
@@ -32,7 +28,7 @@ namespace DistLab2.Persistence.Repositories
                 .OrderBy(p => p.EndDate);
 
             return items;
-            
+
         }
 
         public IEnumerable<AuctionDb> GetOngoingAuctionsFromIds(List<int> ids)

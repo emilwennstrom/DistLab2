@@ -1,5 +1,4 @@
 ﻿using DistLab2.Core;
-using System.Diagnostics;
 
 namespace DistLab2.ViewModels
 {
@@ -9,7 +8,7 @@ namespace DistLab2.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public double highestBid { get;set; }
+        public double highestBid { get; set; }
         public DateTime EndDate { get; set; }
         public string Username { get; set; }
 
@@ -24,7 +23,7 @@ namespace DistLab2.ViewModels
                 EndDate = auction.EndDate,
                 Username = auction.Username,
             };
-           
+
             return vm;
         }
     }

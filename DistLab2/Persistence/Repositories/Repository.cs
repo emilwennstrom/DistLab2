@@ -1,6 +1,5 @@
 ﻿using DistLab2.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace DistLab2.Persistence.Repositories

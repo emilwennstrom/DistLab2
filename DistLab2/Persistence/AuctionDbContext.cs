@@ -1,5 +1,4 @@
-﻿using DistLab2.Core;
-using DistLab2.Persistence.DAO;
+﻿using DistLab2.Persistence.DAO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DistLab2.Persistence

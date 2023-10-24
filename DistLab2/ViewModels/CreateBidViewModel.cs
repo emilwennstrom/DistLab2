@@ -8,9 +8,9 @@ namespace DistLab2.ViewModels
 
         [ScaffoldColumn(false)]
         public int AuctionId { get; set; }
-        
+
         [ScaffoldColumn(false)]
-        public string AuctionName { get; set; } 
+        public string AuctionName { get; set; }
 
         [ScaffoldColumn(false)]
         public double CurrentHighestBid { get; set; }
@@ -20,7 +20,7 @@ namespace DistLab2.ViewModels
         [Required]
         public double BidAmount { get; set; }
 
-      
+
 
 
 

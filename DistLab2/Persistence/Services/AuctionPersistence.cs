@@ -42,7 +42,7 @@ namespace DistLab2.Persistence.Services
             return auctionDb;
         }
 
-      
+
         public List<Auction> GetAllByUsername(string username)
         {
             List<AuctionDb> dbList = _unitOfWork.Auctions.Find(p => p.Username.Equals(username)).ToList();
@@ -88,7 +88,7 @@ namespace DistLab2.Persistence.Services
             List<BidDb> bidDbs = _unitOfWork.Bids.GetOrderedBids(auctionId).ToList();
             List<Bid> bids = new();
 
-            foreach (var bidDb in bidDbs) 
+            foreach (var bidDb in bidDbs)
             {
                 Bid bid = _mapper.Map<Bid>(bidDb);
                 bids.Add(bid);
@@ -98,26 +98,26 @@ namespace DistLab2.Persistence.Services
         }
 
 
-        public double GetHighestBid(int auctionId) 
+        public double GetHighestBid(int auctionId)
         {
 
             //double highest = _unitOfWork.Bids.Find(p => p.AuctionId == (auctionId)).Max(p => p.BidAmount); Exception när inga bud är lagda
             var bids = _unitOfWork.Bids.Find(p => p.AuctionId == auctionId);
             if (!bids.Any()) // Om inga bud finns, sätt current till startingprice 
             {
-                return _unitOfWork.Auctions.Get(auctionId).StartingPrice;   
+                return _unitOfWork.Auctions.Get(auctionId).StartingPrice;
             }
 
             double highestBid = 0;
-            foreach(var bidDb in bids)
+            foreach (var bidDb in bids)
             {
-                if(bidDb.BidAmount > highestBid)
+                if (bidDb.BidAmount > highestBid)
                 {
                     highestBid = bidDb.BidAmount;
                 }
             }
-            
-           
+
+
             return highestBid;
         }
 
@@ -156,7 +156,7 @@ namespace DistLab2.Persistence.Services
         public void DeleteAuction(int id)
         {
             AuctionDb auctionDb = _unitOfWork.Auctions.Get(id);
-            
+
             //automatic cascade delete of bidsDb related to Id of auction due to settings in EE databbase,
             //List<BidDb> bidsDBs= (List<BidDb>)_unitOfWork.Bids.Find(b => b.Id == id);
             //foreach(var bidDb in bidsDBs)

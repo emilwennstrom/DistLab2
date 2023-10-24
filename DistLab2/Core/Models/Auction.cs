@@ -1,8 +1,4 @@
-﻿using DistLab2.Persistence;
-using DistLab2.ViewModels;
-using System.Diagnostics;
-
-namespace DistLab2.Core
+﻿namespace DistLab2.Core
 {
     public class Auction
     {
@@ -10,7 +6,7 @@ namespace DistLab2.Core
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        
+
         public string Username { get; set; }
         public int StartingPrice { get; set; }
         public DateTime CreationDate { get; set; }
@@ -44,8 +40,8 @@ namespace DistLab2.Core
             Bids = new List<Bid>();
         }
 
-        public Auction() 
-        { 
+        public Auction()
+        {
             Bids = new List<Bid>();
         }
 

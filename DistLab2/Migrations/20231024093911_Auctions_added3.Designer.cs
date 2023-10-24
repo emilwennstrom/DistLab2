@@ -4,6 +4,7 @@ using DistLab2.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DistLab2.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    partial class AuctionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231024093911_Auctions_added3")]
+    partial class Auctions_added3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +63,9 @@ namespace DistLab2.Migrations
                         new
                         {
                             Id = -1,
-                            CreationDate = new DateTime(2023, 10, 4, 11, 41, 12, 473, DateTimeKind.Local).AddTicks(1547),
+                            CreationDate = new DateTime(2023, 10, 4, 11, 39, 11, 149, DateTimeKind.Local).AddTicks(187),
                             Description = "lite hål dock",
-                            EndDate = new DateTime(2023, 10, 23, 11, 41, 12, 473, DateTimeKind.Local).AddTicks(1589),
+                            EndDate = new DateTime(2023, 10, 23, 11, 39, 11, 149, DateTimeKind.Local).AddTicks(229),
                             Name = "Fina hattar",
                             StartingPrice = 99,
                             Username = "agge@hotmail.com"
@@ -70,9 +73,9 @@ namespace DistLab2.Migrations
                         new
                         {
                             Id = -2,
-                            CreationDate = new DateTime(2023, 10, 14, 11, 41, 12, 473, DateTimeKind.Local).AddTicks(1714),
+                            CreationDate = new DateTime(2023, 10, 14, 11, 39, 11, 149, DateTimeKind.Local).AddTicks(356),
                             Description = "Jag hittade den",
-                            EndDate = new DateTime(2023, 10, 24, 11, 31, 12, 473, DateTimeKind.Local).AddTicks(1718),
+                            EndDate = new DateTime(2023, 10, 24, 11, 29, 11, 149, DateTimeKind.Local).AddTicks(360),
                             Name = "Plånbok",
                             StartingPrice = 100,
                             Username = "algot@kth.com"
@@ -80,9 +83,9 @@ namespace DistLab2.Migrations
                         new
                         {
                             Id = -3,
-                            CreationDate = new DateTime(2023, 10, 14, 11, 41, 12, 473, DateTimeKind.Local).AddTicks(1758),
+                            CreationDate = new DateTime(2023, 10, 14, 11, 39, 11, 149, DateTimeKind.Local).AddTicks(400),
                             Description = "lite jord medkommer",
-                            EndDate = new DateTime(2023, 10, 24, 11, 31, 12, 473, DateTimeKind.Local).AddTicks(1761),
+                            EndDate = new DateTime(2023, 10, 24, 11, 29, 11, 149, DateTimeKind.Local).AddTicks(403),
                             Name = "En kruka",
                             StartingPrice = 100,
                             Username = "emil@hotmale.com"
@@ -122,7 +125,7 @@ namespace DistLab2.Migrations
                             Id = -1,
                             AuctionId = -1,
                             BidAmount = 140.0,
-                            DateOfBid = new DateTime(2023, 10, 22, 11, 41, 12, 473, DateTimeKind.Local).AddTicks(1595),
+                            DateOfBid = new DateTime(2023, 10, 22, 11, 39, 11, 149, DateTimeKind.Local).AddTicks(234),
                             Username = "emil@hotmale.com"
                         },
                         new
@@ -130,7 +133,7 @@ namespace DistLab2.Migrations
                             Id = -2,
                             AuctionId = -1,
                             BidAmount = 200.0,
-                            DateOfBid = new DateTime(2023, 10, 22, 23, 41, 12, 473, DateTimeKind.Local).AddTicks(1598),
+                            DateOfBid = new DateTime(2023, 10, 22, 23, 39, 11, 149, DateTimeKind.Local).AddTicks(238),
                             Username = "popcorn@gmail.com"
                         },
                         new
@@ -138,7 +141,7 @@ namespace DistLab2.Migrations
                             Id = -3,
                             AuctionId = -2,
                             BidAmount = 501.0,
-                            DateOfBid = new DateTime(2023, 10, 24, 11, 1, 12, 473, DateTimeKind.Local).AddTicks(1722),
+                            DateOfBid = new DateTime(2023, 10, 24, 10, 59, 11, 149, DateTimeKind.Local).AddTicks(364),
                             Username = "emil@hotmale.com"
                         },
                         new
@@ -146,7 +149,7 @@ namespace DistLab2.Migrations
                             Id = -4,
                             AuctionId = -2,
                             BidAmount = 5800.0,
-                            DateOfBid = new DateTime(2023, 10, 24, 11, 21, 12, 473, DateTimeKind.Local).AddTicks(1725),
+                            DateOfBid = new DateTime(2023, 10, 24, 11, 19, 11, 149, DateTimeKind.Local).AddTicks(367),
                             Username = "algot@hotmail.se"
                         },
                         new
@@ -154,7 +157,7 @@ namespace DistLab2.Migrations
                             Id = -5,
                             AuctionId = -2,
                             BidAmount = 501.0,
-                            DateOfBid = new DateTime(2023, 10, 24, 11, 1, 12, 473, DateTimeKind.Local).AddTicks(1765),
+                            DateOfBid = new DateTime(2023, 10, 24, 10, 59, 11, 149, DateTimeKind.Local).AddTicks(407),
                             Username = "popcorn@gmail.com"
                         },
                         new
@@ -162,8 +165,8 @@ namespace DistLab2.Migrations
                             Id = -6,
                             AuctionId = -2,
                             BidAmount = 5800.0,
-                            DateOfBid = new DateTime(2023, 10, 24, 11, 21, 12, 473, DateTimeKind.Local).AddTicks(1768),
-                            Username = "agge@hotmail.com"
+                            DateOfBid = new DateTime(2023, 10, 24, 11, 19, 11, 149, DateTimeKind.Local).AddTicks(410),
+                            Username = "agge@hotmail.se"
                         });
                 });
 

@@ -1,4 +1,7 @@
-# DistLab2
+# Auction website
+
+
+A mvc application using the ASP.Net framework
 
 deltagare: Emil Wennström, Algot von Reybekiel
 emilwen@kth.se, algotvr@kth.se
